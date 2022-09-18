@@ -1,0 +1,48 @@
+﻿@page "/D4"
+
+<h3>D4 Points</h3>
+
+@if (nodes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Unit</th>
+                <th>Signals</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var node in nodes)
+            {
+                <tr>
+                    <td>@node.Id</td>
+                    <td>@node.Name</td>
+                    <td>@node.CreatedAt</td>
+                    <td>@node.UpdatedAt</td>
+                    <td>
+                        @if (node?.Signals?.Nodes != null && node.Signals.Nodes.Any() && node.Signals.Nodes[0] != null)
+                        {
+                            @node.Signals.Nodes[0].Unit;
+                        }
+                    </td>
+                    <td>@node?.Signals?.Nodes.Length
+                    @*@foreach (var signal in node.Signals.Nodes)
+                    @signal.Data.RawValue*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

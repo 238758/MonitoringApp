@@ -1,0 +1,38 @@
+﻿@page "/SpaceXlaunches"
+
+<h3>SpaceX Launches</h3>
+
+<p>This is launch data pulled back using GraphQL.</p>
+
+@if (launches == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Is Tentative (y/n)</th>
+                <th>Launch Date</th>
+                <th>Mission Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var launch in launches)
+            {
+                <tr>
+                    <td>@launch.Id</td>
+                    <td>@launch.IsTentative</td>
+                    <td>@launch.LaunchDateLocal</td>
+                    <td>@launch.MissionName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

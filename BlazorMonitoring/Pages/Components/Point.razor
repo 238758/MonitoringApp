@@ -1,0 +1,21 @@
+﻿@using System.Reflection.Metadata
+@using FM4017Library.DataModels
+
+<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
+
+    <img src=@MyPoint?.ImageUrl style=" height:80px">
+    <h3 class="py-2">@MyPoint?.Name</h3>
+    <h2>@MyPoint?.signals?.LastOrDefault()?.Value @MyPoint?.signals?.LastOrDefault()?.Unit</h2>
+
+    Updated: @MyPoint?.signals?.LastOrDefault()?.Timestamp.ToString("dd-MM-yy HH:mm") <br />
+
+    <hr size="10" style="color:#1b1a5a;">
+    Lat: @MyPoint?.Latitude Long: @MyPoint?.Longitude
+
+</div>
+
+
+@code {
+    [Parameter]
+    public FM4017Library.DataModels.Point? MyPoint { get; set; }
+}

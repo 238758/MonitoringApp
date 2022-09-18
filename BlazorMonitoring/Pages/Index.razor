@@ -1,0 +1,45 @@
+﻿@page "/"
+@inject IConfiguration _config
+
+<PageTitle>Index</PageTitle>
+
+<h1>Appsettings, Dimension Four</h1>
+
+
+<p>
+    Api_url Value: @Api_url
+</p>
+
+<p>
+    Header1Name value: @Header1Name
+</p>
+
+<p>
+    Header1Value value: @Header1Value
+</p>
+
+<p>
+    Header2Name value: @Header2Name
+</p>
+
+<p>
+    @*Header2Value value: @Header2Value*@
+</p>
+
+@code {
+    string Api_url = "";
+    string Header1Name = "";
+    string Header1Value = "";
+    string Header2Name = "";
+    string Header2Value = "";
+
+    protected override void OnInitialized()
+    {
+        Api_url = _config["DimensionFour:ApiUrl"];
+        Header1Name = _config["DimensionFour:Header1Name"];
+        Header1Value = _config["DimensionFour:Header1Value"];
+        Header2Name = _config["DimensionFour:Header2Name"];
+        Header2Value = _config["DimensionFour:Header2Value"];
+
+    }
+}

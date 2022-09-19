@@ -16,7 +16,12 @@ builder.Services.AddHttpClient<ISpaceXDataService, GraphQLSpaceXDataService>
     (spds => spds.BaseAddress = new Uri(builder.Configuration["spacex_api_base_url"]));
 
 builder.Services.AddHttpClient<ID4DataService, GraphQLD4DataService>
-            (spds => spds.BaseAddress = new Uri(builder.Configuration["DimensionFour:ApiUrl"]));
+            (spds =>
+            {
+                spds.BaseAddress = new Uri(builder.Configuration["DimensionFour:ApiUrl"]);
+                spds.DefaultRequestHeaders.Add(builder.Configuration["DimensionFour:Header1Name"], builder.Configuration["DimensionFour:Header1Value"]);
+                spds.DefaultRequestHeaders.Add(builder.Configuration["DimensionFour:Header2Name"], builder.Configuration["DimensionFour:Header2Value"]);
+            });
 
 var app = builder.Build();
 

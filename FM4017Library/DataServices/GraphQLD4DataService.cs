@@ -1,4 +1,5 @@
-﻿using FM4017Library.Dtos;
+﻿using FM4017Library.DataAccess.GraphQlQueries;
+using FM4017Library.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,32 +16,13 @@ public class GraphQLD4DataService : ID4DataService
     public GraphQLD4DataService(HttpClient httpclient)
     {
         _httpclient = httpclient;
-
-        // TODO - move to appsettings (Read only token)
-        _httpclient.DefaultRequestHeaders.Add("x-tenant-id", "my-test-tenant");
-        _httpclient.DefaultRequestHeaders.Add("x-tenant-key", "63694b93b08c907b3838db49");
     }
 
     public async Task<D4PointDto[]?> GetAllPoints()
     {
         var queryObject = new
         {
-            query = @"query { 
-                        points {
-                            nodes{
-                                name 
-                                id 
-                                createdAt
-                                updatedAt 
-                                metadata
-                                signals(paginate: {last: 100}) {   
-						            nodes {
-							            id
-							            timestamp
-                                        unit
-                                        data{
-                                            rawValue
-                     }}}}}}",
+            query = GraphQlQueries.GetAllPoints,
             variables = new { }
         };
 

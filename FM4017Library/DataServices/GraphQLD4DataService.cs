@@ -18,7 +18,7 @@ public class GraphQLD4DataService : ID4DataService
         _httpclient = httpclient;
     }
 
-    public async Task<D4PointDto[]?> GetAllPoints()
+    public async Task<List<D4PointDto>?> GetAllPoints()
     {
         var queryObject = new
         {

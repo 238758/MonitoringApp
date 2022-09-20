@@ -1,8 +1,8 @@
-﻿@page "/D4"
+﻿@page "/D4Points"
 
 <h3>D4 Points</h3>
 
-@if (nodes == null)
+@if (points == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -11,32 +11,35 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Point Id</th>
                 <th>Name</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Parent Space Id</th>
+                <th>Point Created At</th>
+                <th>Point Updated At</th>
+                <th>Last signal value</th>
                 <th>Unit</th>
-                <th>Signals</th>
+                <th>Signal strength</th>
+                <th>SNR</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var node in nodes)
+            @foreach (var point in points)
             {
                 <tr>
-                    <td>@node.Id</td>
-                    <td>@node.Name</td>
-                    <td>@node.CreatedAt</td>
-                    <td>@node.UpdatedAt</td>
-                    <td>
-                        @if (node?.Signals?.Nodes != null && node.Signals.Nodes.Any() && node.Signals.Nodes[0] != null)
-                        {
-                            @node.Signals.Nodes[0].Unit;
-                        }
-                    </td>
-                    <td>@node?.Signals?.Nodes.Length
-                    @*@foreach (var signal in node.Signals.Nodes)
-                    @signal.Data.RawValue*@
-                    </td>
+                    <td>@point.Id</td>
+                    <td>@point.Name</td>
+                    <td>@point.SpaceId</td>
+                    <td>@point.CreatedAt</td>
+                    <td>@point.UpdatedAt</td>
+                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Data?.RawValue</td>
+                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Unit </td>
+                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.SignalStrength </td>
+                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.Snr </td>
+                    <td>@point.Metadata?.Latitude</td>
+                    <td>@point.Metadata?.Longitude</td>
+
                 </tr>
             }
         </tbody>

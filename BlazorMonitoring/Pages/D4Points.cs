@@ -9,12 +9,13 @@ public partial class D4Points
     [Inject]
     ID4DataService? D4DataService { get; set; }
 
-    private D4PointDto[]? nodes;
+    private List<D4PointDto>? points;
 
 
     protected override async Task OnInitializedAsync()
     {
-        nodes = await D4DataService.GetAllPoints();
+        points = await D4DataService.GetAllPoints();
+
     }
 
 }

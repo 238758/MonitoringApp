@@ -37,8 +37,8 @@ else
                     <td>@point?.Signals?.Nodes?.LastOrDefault()?.Unit </td>
                     <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.SignalStrength </td>
                     <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.Snr </td>
-                    <td>@point.Metadata?.Latitude</td>
-                    <td>@point.Metadata?.Longitude</td>
+                    <td>@point.Metadata?.Latitude?.ToString("0.###")</td>
+                    <td>@point.Metadata?.Longitude?.ToString("0.###")</td>
 
                 </tr>
             }

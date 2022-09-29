@@ -4,5 +4,5 @@ namespace FM4017Library.DataServices;
 
 public interface ID4DataService
 {
-    Task<List<D4PointDto>> GetAllPoints();
+    Task<List<PointNode>> GetAllPoints();
 }

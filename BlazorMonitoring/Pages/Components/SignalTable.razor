@@ -1,0 +1,39 @@
+﻿@using FM4017Library.Dtos
+<h3>SignalTable</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Signal Id</th>
+            <th>Point Id</th>
+            <th>Timestamp</th>
+            <th>Unit</th>
+            <th>Value</th>
+            <th>Signal Created At</th>
+            <th>Signal Updated At</th>
+            <th>Signal strength</th>
+            <th>SNR</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var signal in Signals)
+        {
+            <tr>
+                <td>@signal.Id</td>
+                <td>@signal.PointId</td>
+                <td>@signal.Timestamp</td>
+                <td>@signal.Unit</td>
+                <td>@signal.Data?.RawValue</td>
+                <td>@signal.CreatedAt</td>
+                <td>@signal.UpdatedAt</td>
+                <td>@signal.Metadata?.SignalStrength</td>
+                <td>@signal.Metadata?.Snr</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<SignalNode>? Signals { get; set; }
+}

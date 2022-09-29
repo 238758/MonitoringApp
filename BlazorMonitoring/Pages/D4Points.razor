@@ -1,51 +1,22 @@
 ﻿@page "/D4Points"
+@using BlazorMonitoring.Pages.Components
 
 <h3>D4 Points</h3>
 
-@if (points == null)
+
+
+@if (pointNodes == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Point Id</th>
-                <th>Name</th>
-                <th>Parent Space Id</th>
-                <th>Point Created At</th>
-                <th>Point Updated At</th>
-                <th>Last signal value</th>
-                <th>Unit</th>
-                <th>Signal strength</th>
-                <th>SNR</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var point in points)
-            {
-                <tr>
-                    <td>@point.Id</td>
-                    <td>@point.Name</td>
-                    <td>@point.SpaceId</td>
-                    <td>@point.CreatedAt</td>
-                    <td>@point.UpdatedAt</td>
-                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Data?.RawValue</td>
-                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Unit </td>
-                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.SignalStrength </td>
-                    <td>@point?.Signals?.Nodes?.LastOrDefault()?.Metadata.Snr </td>
-                    <td>@point.Metadata?.Latitude?.ToString("0.###")</td>
-                    <td>@point.Metadata?.Longitude?.ToString("0.###")</td>
+    <PointTable Points=@pointNodes />
 
-                </tr>
-            }
-        </tbody>
-    </table>
+    <SignalTable Signals=@signalNodes />
+
 }
 
 @code {
-
+    
 }

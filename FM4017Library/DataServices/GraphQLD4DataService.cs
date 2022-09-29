@@ -18,7 +18,7 @@ public class GraphQLD4DataService : ID4DataService
         _httpclient = httpclient;
     }
 
-    public async Task<List<D4PointDto>?> GetAllPoints()
+    public async Task<List<PointNode>?> GetAllPoints()
     {
         var queryObject = new
         {
@@ -38,7 +38,7 @@ public class GraphQLD4DataService : ID4DataService
             var gqlData = await JsonSerializer.DeserializeAsync<D4GqlData>
                 (await response.Content.ReadAsStreamAsync());
 
-            var result = gqlData?.Data.Points.Nodes;
+            var result = gqlData?.Data.Points.PointNodes;
 
             return result;
         }

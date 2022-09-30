@@ -10,5 +10,9 @@
     <ProjectReference Include="..\FM4017Library\FM4017Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Publish\" />
+  </ItemGroup>
+
 
 </Project>

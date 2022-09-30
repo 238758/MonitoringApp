@@ -1,13 +1,13 @@
 ﻿@using FM4017Library.Dtos
-<h3>PointTable</h3>
+<h5>Points in selected Space</h5>
 
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Point Id</th>
             <th>Name</th>
-            <th>Parent Space Id</th>
+            @*<th>Parent Space Id</th>*@
             <th>Point Created At</th>
             <th>Point Updated At</th>
             <th>Last signal value</th>
@@ -20,29 +20,49 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var point in Points)
+        @if (Points != null)
         {
-            <tr>
-                <td>@point.Id</td>
-                <td>@point.Name</td>
-                <td>@point.SpaceId</td>
-                <td>@point.CreatedAt</td>
-                <td>@point.UpdatedAt</td>
-                <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
-                <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Unit </td>
-                <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
-                <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
-                <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
-                <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
-                <td>@point?.Metadata?.ImageUrl?</td>
+            @foreach (var point in Points)
+            {
+                <tr @onclick="() => Select(point)">
+                    <td>@point.Id</td>
+                    <td>@point.Name</td>
+                    @*<td>@point.SpaceId</td>*@
+                    <td>@point.CreatedAt</td>
+                    <td>@point.UpdatedAt</td>
+                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
+                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Unit </td>
+                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
+                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
+                    <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
+                    <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
+                    @*<td>@point?.Metadata?.ImageUrl?</td>*@
 
-            </tr>
+                </tr>
+            }
         }
     </tbody>
 </table>
 
+<br />
+<br />
+<SignalTable Signals="_selectedPoint?.Signals?.SignalNodes"></SignalTable>
+
 
 @code {
+    // Input to component
     [Parameter]
     public List<PointNode>? Points { get; set; }
+
+
+
+    private PointNode? _selectedPoint;
+
+    // List signals based on selection from user
+    private void Select(PointNode point)
+    {
+        // clicked by user
+        _selectedPoint = point;
+
+    }
 }

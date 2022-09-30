@@ -1,0 +1,83 @@
+﻿@using FM4017Library.Dtos
+
+<h5>Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)</h5>
+
+<div class="controlRow">
+    <button class="btn btn-primary" @onclick=Home>Home</button>
+    <br />
+    <br />
+</div>
+
+
+<h5>Subspaces in selected Space</h5>
+
+
+<table class="table table-striped  table-hover" >
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_selectedSpaces != null)
+        {
+            @foreach (var space in _selectedSpaces)
+            {
+                <tr @onclick="() => Select(space)">
+                    <td>@space.Name</td>
+                    <td>@space.Id</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+<PointTable Points="_selectedSpace?.Points?.PointNodes"></PointTable>
+
+
+@code {
+
+    // Input to component
+    [Parameter]
+    public List<SpaceNode>? Spaces { get; set; }
+
+    private List<SpaceNode>? _selectedSpaces;
+    private SpaceNode? _selectedSpace;
+
+    // List spaces based on selection from user
+    private void Select(SpaceNode space)
+    {
+        // clicked by user
+        _selectedSpace = space;
+        string? parentId = _selectedSpace.Id;
+
+        // Get spaces with selected space as parent
+        _selectedSpaces = SelectSpacesWithParent(Spaces, parentId);
+    }
+
+    protected override void OnInitialized()
+    {
+        _selectedSpaces = SelectSpacesWithParent(Spaces, null);
+    }
+
+    private void Home()
+    {
+        _selectedSpaces = SelectSpacesWithParent(Spaces, null);
+        _selectedSpace = null;
+        
+    }
+
+    
+    private List<SpaceNode> SelectSpacesWithParent(List<SpaceNode>? spaces, string? parentId)
+    {
+        var result = (from space in spaces
+                      where space.Parent?.Id == parentId
+                      select space).ToList();
+
+        return result;
+    }
+
+}

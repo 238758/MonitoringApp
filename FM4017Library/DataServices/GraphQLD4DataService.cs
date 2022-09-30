@@ -17,12 +17,12 @@ public class GraphQLD4DataService : ID4DataService
     {
         _httpclient = httpclient;
     }
-
-    public async Task<List<PointNode>?> GetAllPoints()
+    
+    public async Task<List<SpaceNode>?> GetAllSpacesPointsSignals()
     {
         var queryObject = new
         {
-            query = GraphQlQueries.GetAllPoints,
+            query = GraphQlQueries.GetAllSpacesPointsSignals,
             variables = new { }
         };
 
@@ -38,10 +38,12 @@ public class GraphQLD4DataService : ID4DataService
             var gqlData = await JsonSerializer.DeserializeAsync<D4GqlData>
                 (await response.Content.ReadAsStreamAsync());
 
-            var result = gqlData?.Data.Points.PointNodes;
+            var result = gqlData?.Data?.Spaces?.SpaceNodes;
 
             return result;
         }
         return null;
     }
+
+    
 }

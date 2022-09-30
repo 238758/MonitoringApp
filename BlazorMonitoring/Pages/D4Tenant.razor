@@ -1,19 +1,23 @@
-﻿@page "/D4Points"
+﻿@page "/D4Tenant"
 @using BlazorMonitoring.Pages.Components
 
 <h3>D4 Points</h3>
 
 
 
-@if (pointNodes == null)
+@if (spaceNodes == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <PointTable Points=@pointNodes />
+    
 
-    <SignalTable Signals=@signalNodes />
+    <SpaceTable Spaces="@spaceNodes"  />
+
+
+
+
 
 }
 

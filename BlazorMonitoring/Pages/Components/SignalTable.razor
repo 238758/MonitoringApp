@@ -1,7 +1,7 @@
 ﻿@using FM4017Library.Dtos
-<h3>SignalTable</h3>
+<h5>Signals from selected point</h5>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Signal Id</th>
@@ -16,19 +16,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var signal in Signals)
+        @if (Signals != null)
         {
-            <tr>
-                <td>@signal.Id</td>
-                <td>@signal.PointId</td>
-                <td>@signal.Timestamp</td>
-                <td>@signal.Unit</td>
-                <td>@signal.Data?.RawValue</td>
-                <td>@signal.CreatedAt</td>
-                <td>@signal.UpdatedAt</td>
-                <td>@signal.Metadata?.SignalStrength</td>
-                <td>@signal.Metadata?.Snr</td>
-            </tr>
+            @foreach (var signal in Signals)
+            {
+                <tr>
+                    <td>@signal.Id</td>
+                    <td>@signal.PointId</td>
+                    <td>@signal.Timestamp</td>
+                    <td>@signal.Unit</td>
+                    <td>@signal.Data?.RawValue</td>
+                    <td>@signal.CreatedAt</td>
+                    <td>@signal.UpdatedAt</td>
+                    <td>@signal.Metadata?.SignalStrength</td>
+                    <td>@signal.Metadata?.Snr</td>
+                </tr>
+            }
         }
     </tbody>
 </table>

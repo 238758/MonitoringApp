@@ -20,7 +20,8 @@
         {
             @foreach (var signal in Signals)
             {
-                <tr>
+                @*<tr @onclick="() => SelectedSignal = signal">*@
+                <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>
                     <td>@signal.PointId</td>
                     <td>@signal.Timestamp</td>
@@ -39,4 +40,15 @@
 @code {
     [Parameter]
     public List<SignalNode>? Signals { get; set; }
+
+    [Parameter]
+    public SignalNode? SelectedSignal { get; set; }
+    
+    [Parameter]
+    public EventCallback<SignalNode> SelectedSignalChanged { get; set; }
+
+    private async Task ChangeSelectedSignal(SignalNode signal)
+    {
+        await SelectedSignalChanged.InvokeAsync(signal);
+    }
 }

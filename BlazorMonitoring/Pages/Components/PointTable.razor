@@ -1,6 +1,8 @@
 ﻿@using FM4017Library.Dtos
 <h5>Points in selected Space</h5>
 
+Timestamp child test: @ChildSelectedSignal?.Timestamp
+
 
 <table class="table table-striped table-hover">
     <thead>
@@ -24,7 +26,8 @@
         {
             @foreach (var point in Points)
             {
-                <tr @onclick="() => Select(point)">
+                @*<tr @onclick="() => SelectedPoint = point">*@
+                <tr @onclick="() => ChangeSelectedPoint(point)">
                     <td>@point.Id</td>
                     <td>@point.Name</td>
                     @*<td>@point.SpaceId</td>*@
@@ -46,23 +49,40 @@
 
 <br />
 <br />
-<SignalTable Signals="_selectedPoint?.Signals?.SignalNodes"></SignalTable>
+<SignalTable Signals="SelectedPoint?.Signals?.SignalNodes" @bind-SelectedSignal="BoundValue"></SignalTable>
 
 
 @code {
-    // Input to component
     [Parameter]
     public List<PointNode>? Points { get; set; }
 
+    [Parameter]
+    public PointNode? SelectedPoint { get; set; }
 
+    [Parameter]
+    public EventCallback<PointNode> SelectedPointChanged { get; set; }
 
-    private PointNode? _selectedPoint;
-
-    // List signals based on selection from user
-    private void Select(PointNode point)
+    private async Task ChangeSelectedPoint(PointNode point)
     {
-        // clicked by user
-        _selectedPoint = point;
-
+        await SelectedPointChanged.InvokeAsync(point);
     }
+
+    // chain bind from child
+    [Parameter]
+    public SignalNode? ChildSelectedSignal { get; set; }
+
+    [Parameter]
+    public EventCallback<SignalNode> ChildSelectedSignalChanged { get; set; }
+
+    private SignalNode? BoundValue
+    {
+        get => ChildSelectedSignal;
+        set => ChildSelectedSignalChanged.InvokeAsync(value);
+    }
+
+    private async Task ChangeSelectedSignal(SignalNode signal)
+    {
+        await ChildSelectedSignalChanged.InvokeAsync(ChildSelectedSignal);
+    }
+
 }

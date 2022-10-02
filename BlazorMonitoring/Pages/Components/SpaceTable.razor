@@ -11,6 +11,11 @@
 
 <h5>Subspaces in selected Space</h5>
 
+child selected point name : @_childSelectedPoint?.Name
+<br />
+child selected signal timestamp : @_childSelectedSignal?.Timestamp
+
+
 
 <table class="table table-striped  table-hover" >
     <thead>
@@ -35,7 +40,9 @@
 
 <br />
 <br />
-<PointTable Points="_selectedSpace?.Points?.PointNodes"></PointTable>
+<PointTable Points="_selectedSpace?.Points?.PointNodes"
+@bind-SelectedPoint="_childSelectedPoint" 
+@bind-ChildSelectedSignal="_childSelectedSignal"></PointTable>
 
 
 @code {
@@ -46,6 +53,9 @@
 
     private List<SpaceNode>? _selectedSpaces;
     private SpaceNode? _selectedSpace;
+    private PointNode? _childSelectedPoint;
+    private SignalNode? _childSelectedSignal;
+
 
     // List spaces based on selection from user
     private void Select(SpaceNode space)
@@ -66,11 +76,14 @@
     private void Home()
     {
         _selectedSpaces = SelectSpacesWithParent(Spaces, null);
-        _selectedSpace = null;
         
+        // Remove selection
+        _selectedSpace = null;
+        _childSelectedPoint = null;
+        _childSelectedSignal = null;
     }
 
-    
+    // Select spaces in spaces with a specific parentId, use null to select spaces with no parent 
     private List<SpaceNode> SelectSpacesWithParent(List<SpaceNode>? spaces, string? parentId)
     {
         var result = (from space in spaces

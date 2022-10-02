@@ -1,23 +1,25 @@
 ﻿@using FM4017Library.Dtos
-<h5>Points in selected Space</h5>
+<h5>Points in selected Space </h5>
+Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
 
-Timestamp child test: @ChildSelectedSignal?.Timestamp
+@*Timestamp child test: @ChildSelectedSignal?.Timestamp*@
 
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-light table-hover">
     <thead>
         <tr>
-            <th>Point Id</th>
             <th>Name</th>
+            <th>Id</th>
             @*<th>Parent Space Id</th>*@
-            <th>Point Created At</th>
-            <th>Point Updated At</th>
-            <th>Last signal value</th>
-            <th>Unit</th>
-            <th>Signal strength</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Last Value</th>
+            <th>Last Unit</th>
+            <th>Signal Strength</th>
             <th>SNR</th>
             <th>Latitude</th>
             <th>Longitude</th>
+            <th>Signals</th>
             <th>Image Url</th>
         </tr>
     </thead>
@@ -26,10 +28,9 @@ Timestamp child test: @ChildSelectedSignal?.Timestamp
         {
             @foreach (var point in Points)
             {
-                @*<tr @onclick="() => SelectedPoint = point">*@
                 <tr @onclick="() => ChangeSelectedPoint(point)">
-                    <td>@point.Id</td>
                     <td>@point.Name</td>
+                    <td>@point.Id</td>
                     @*<td>@point.SpaceId</td>*@
                     <td>@point.CreatedAt</td>
                     <td>@point.UpdatedAt</td>
@@ -39,6 +40,7 @@ Timestamp child test: @ChildSelectedSignal?.Timestamp
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
                     <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
                     <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
+                    <td>@point?.Signals.SignalNodes.Count</td>
                     @*<td>@point?.Metadata?.ImageUrl?</td>*@
 
                 </tr>

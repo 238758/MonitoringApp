@@ -1,7 +1,9 @@
 ﻿@page "/D4Tenant"
 @using BlazorMonitoring.Pages.Components
+@inject IConfiguration _config
 
-<h3>D4 Points</h3>
+
+<h3>Dimension Four tenant: @_d4TenantName</h3>
 
 
 
@@ -11,13 +13,7 @@
 }
 else
 {
-    
-
     <SpaceTable Spaces="@spaceNodes"  />
-
-
-
-
 
 }
 

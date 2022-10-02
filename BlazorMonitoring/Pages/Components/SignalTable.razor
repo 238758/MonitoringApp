@@ -18,7 +18,7 @@
     <tbody>
         @if (Signals != null)
         {
-            @foreach (var signal in Signals)
+            @foreach (var signal in Signals.Reverse<SignalNode>() )
             {
                 <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>

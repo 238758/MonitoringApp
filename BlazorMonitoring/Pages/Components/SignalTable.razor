@@ -5,7 +5,6 @@
     <thead>
         <tr>
             <th>Signal Id</th>
-            @*<th>Point Id</th>*@
             <th>Timestamp</th>
             <th>Unit</th>
             <th>Value</th>
@@ -22,7 +21,6 @@
             {
                 <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>
-                    @*<td>@signal.PointId</td>*@
                     <td>@signal.Timestamp</td>
                     <td>@signal.Unit</td>
                     <td>@signal.Data?.RawValue</td>

@@ -10,7 +10,6 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
         <tr>
             <th>Name</th>
             <th>Id</th>
-            @*<th>Parent Space Id</th>*@
             <th>Created At</th>
             <th>Updated At</th>
             <th>Last Value</th>
@@ -31,7 +30,6 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
                 <tr @onclick="() => ChangeSelectedPoint(point)">
                     <td>@point.Name</td>
                     <td>@point.Id</td>
-                    @*<td>@point.SpaceId</td>*@
                     <td>@point.CreatedAt</td>
                     <td>@point.UpdatedAt</td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
@@ -40,9 +38,8 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
                     <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
                     <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
-                    <td>@point?.Signals.SignalNodes.Count</td>
+                    <td>@point?.Signals?.SignalNodes?.Count</td>
                     @*<td>@point?.Metadata?.ImageUrl?</td>*@
-
                 </tr>
             }
         }
@@ -51,8 +48,10 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
 
 <br />
 <br />
-<SignalTable Signals="SelectedPoint?.Signals?.SignalNodes" @bind-SelectedSignal="BoundValue"></SignalTable>
-
+<SignalTable 
+    
+    Signals="Points?.Find(s => s.Id == SelectedPoint?.Id)?.Signals?.SignalNodes" 
+    @bind-SelectedSignal="BoundValue" />
 
 @code {
     [Parameter]

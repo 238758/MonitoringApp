@@ -2,6 +2,7 @@
 
 <div class="controlRow">
     <button class="btn btn-primary" @onclick=Home>Home</button>
+    <button class="btn btn-primary" @onclick=Up>Up</button>
     <br />
     <br />
 </div>
@@ -26,18 +27,18 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
         </tr>
     </thead>
     <tbody>
-        @if (_selectedSpaces != null)
+        @if (Spaces != null)
         {
-            @foreach (var space in _selectedSpaces)
+            @foreach (var space in Spaces.Where(s => s.Parent?.Id == _selectedSpace?.Id))
             {
-                <tr @onclick="() => Select(space)">
+                <tr @onclick="() => _selectedSpace = space">
                     <td>@space.Name</td>
                     <td>@space.Id</td>
                     <td>@space.CreatedAt</td>
                     <td>@space.UpdatedAt</td>
                     <td>@space.Metadata?.Latitude?.ToString("0.###")</td>
                     <td>@space.Metadata?.Longitude?.ToString("0.###")</td>
-                    <td>@SelectSpacesWithParent(Spaces, space.Id).Count</td>
+                    <td>@Spaces.Count(s => s.Parent?.Id == space.Id)</td>
                     <td>@space.Points?.PointNodes?.Count</td>
                 </tr>
             }
@@ -47,9 +48,10 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
 
 <br />
 <br />
-<PointTable Points="_selectedSpace?.Points?.PointNodes"
+<PointTable 
+Points="Spaces?.Find(s => s.Id == _selectedSpace?.Id)?.Points?.PointNodes"
 @bind-SelectedPoint="_childSelectedPoint" 
-@bind-ChildSelectedSignal="_childSelectedSignal"></PointTable>
+@bind-ChildSelectedSignal="_childSelectedSignal" />
 
 
 @code {
@@ -58,46 +60,24 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
     [Parameter]
     public List<SpaceNode>? Spaces { get; set; }
 
-    private List<SpaceNode>? _selectedSpaces;
     private SpaceNode? _selectedSpace;
     private PointNode? _childSelectedPoint;
     private SignalNode? _childSelectedSignal;
 
-
-    // List spaces based on selection from user
-    private void Select(SpaceNode space)
+    private void Up()
     {
-        // clicked by user
-        _selectedSpace = space;
-        string? parentId = _selectedSpace.Id;
-
-        // Get spaces with selected space as parent
-        _selectedSpaces = SelectSpacesWithParent(Spaces, parentId);
-    }
-
-    protected override void OnInitialized()
-    {
-        _selectedSpaces = SelectSpacesWithParent(Spaces, null);
-    }
-
-    private void Home()
-    {
-        _selectedSpaces = SelectSpacesWithParent(Spaces, null);
-        
-        // Remove selection
-        _selectedSpace = null;
+        // select parent
+        _selectedSpace = Spaces?.Find(s => s.Id == _selectedSpace?.Parent?.Id);
+        // Remove selections
         _childSelectedPoint = null;
         _childSelectedSignal = null;
     }
 
-    // Select spaces in spaces with a specific parentId, use null to select spaces with no parent 
-    private List<SpaceNode> SelectSpacesWithParent(List<SpaceNode>? spaces, string? parentId)
+    private void Home()
     {
-        var result = (from space in spaces
-                      where space.Parent?.Id == parentId
-                      select space).ToList();
-
-        return result;
+        // Remove selections
+        _selectedSpace = null;
+        _childSelectedPoint = null;
+        _childSelectedSignal = null;
     }
-
 }

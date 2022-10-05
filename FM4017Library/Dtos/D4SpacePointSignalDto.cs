@@ -54,6 +54,9 @@ public class SpaceMetadata
 
     [JsonPropertyName("tlf")]
     public string? Tlf { get; set; }
+
+    [JsonPropertyName("imageUrl")]
+    public string? ImageUrl { get; set; }
 }
 
 public class Parent
@@ -111,6 +114,9 @@ public class PointMetadata
 
     [JsonPropertyName("description")]
     public string? Description { get; set; }
+
+    [JsonPropertyName("imageUrl")]
+    public string? ImageUrl { get; set; }
 }
 
 public class Measurement

@@ -13,7 +13,7 @@ public partial class D4Tenant
 
     private string? _d4TenantName;
     private int _pollRateMinutes;
-    private List<SpaceNode>? spaceNodes;
+    private List<SpaceNode>? _spaceNodes;
     private System.Timers.Timer? _updateTimer;
     private DateTime? _updateDateTime = DateTime.UtcNow;
 
@@ -22,7 +22,7 @@ public partial class D4Tenant
     {
         if (D4DataService != null)
         {
-            spaceNodes = await D4DataService.GetAllSpacesPointsSignals();
+            _spaceNodes = await D4DataService.GetAllSpacesPointsSignals();
         }
 
         _updateTimer = new System.Timers.Timer(1000 * 60 * _pollRateMinutes);
@@ -35,7 +35,7 @@ public partial class D4Tenant
     {
         if (D4DataService != null)
         {
-            spaceNodes = await D4DataService.GetAllSpacesPointsSignals();
+            _spaceNodes = await D4DataService.GetAllSpacesPointsSignals();
         }
 
         _updateDateTime = DateTime.UtcNow;

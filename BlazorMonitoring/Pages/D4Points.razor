@@ -1,0 +1,16 @@
+﻿@page "/D4Points"
+@using BlazorMonitoring.Pages.Components
+@inject IConfiguration _config
+
+<div class="row">
+    @foreach (var point in _pointList)
+    {
+        <div class="col-md-4">
+            <D4Point Mypoint=@point></D4Point>
+        </div>
+    }
+</div>
+
+@code {
+
+}

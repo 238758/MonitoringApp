@@ -5,4 +5,5 @@ namespace FM4017Library.DataServices;
 public interface ID4DataService
 {
     Task<List<SpaceNode>?> GetAllSpacesPointsSignals();
+    Task<List<PointNode>?> GetAllPointsSignals();
 }

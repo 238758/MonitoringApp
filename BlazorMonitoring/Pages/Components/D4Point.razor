@@ -1,0 +1,116 @@
+﻿@using FM4017Library.Dtos
+
+
+
+<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
+
+    @*Image*@
+    <img src=@ImageUrl style=" height:80px">
+
+    @*Name*@
+    <h3 class="py-2">@prettifyName(Name)</h3>
+
+    @*Value unit*@
+    @if (LastUniqueSignals != null)
+        {
+            @foreach (var signal in LastUniqueSignals)
+            {
+                <h2>@signal.Data?.RawValue @prettifyUnits(signal.Unit)</h2>
+            }
+        }
+    
+    @*Last updated*@
+    Updated: @Updated <br />
+
+    @*line*@
+    <hr size="10" style="color:#1b1a5a;">
+
+    @*Lat Long*@
+    Lat: @Latitude Long: @Longitude
+
+</div>
+
+
+@code {
+    [Parameter]
+    public PointNode? MyPoint { get; set; }
+
+
+
+    private string? Latitude
+    {
+        get { return MyPoint?.Metadata?.Latitude?.ToString("0.###"); }
+    }
+
+    private string? Longitude
+    {
+        get { return MyPoint?.Metadata?.Longitude?.ToString("0.###"); }
+    }
+
+    private string? Updated
+    {
+        get { return MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Timestamp?.ToString("dd-MM-yy HH:mm"); }
+    }
+
+    private string? ImageUrl
+    {
+        get { return MyPoint?.Metadata?.ImageUrl; }
+    }
+
+    private string? Name
+    {
+        get { return MyPoint?.Name; }
+    }
+
+    private string? Unit
+    {
+        get { return MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Unit; }
+    }
+
+    private List<SignalNode>? LastUniqueSignals
+    {
+        get {
+            List<SignalNode>? result = new();
+
+            // find # unique
+            List<SignalNode>? uniqueUnitSignals = MyPoint?.Signals?.SignalNodes?.DistinctBy(t => t.Unit).ToList();
+
+            if (uniqueUnitSignals != null)
+            {
+                // get last (newest) signalnode of each unique unit
+                foreach (var u in uniqueUnitSignals)
+                {
+                    var a = MyPoint?.Signals?.SignalNodes?.FindLast(t => t.Unit == u.Unit);
+
+                    // add to result if not null
+                    if (a != null)
+                    {
+                        result.Add(a);
+                    }
+                }
+            }
+
+            return result; 
+        }
+    }
+
+    private string? prettifyUnits(string? unit)
+    {
+        if (unit == "CELSIUS_DEGREES")
+        {
+            return "°C";
+        }
+        else if (unit == "PERCENTS")
+        {
+            return "%";
+        }
+
+        return unit;
+    }
+
+    private string? prettifyName(string? name)
+    {
+        return name?.Replace("_", " ");
+    }
+}
+

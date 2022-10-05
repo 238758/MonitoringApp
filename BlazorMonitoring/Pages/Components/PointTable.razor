@@ -1,4 +1,6 @@
 ﻿@using FM4017Library.Dtos
+@using FM4017Library.Helpers
+
 <h5>Points in selected Space </h5>
 Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
 
@@ -30,8 +32,8 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
                 <tr @onclick="() => ChangeSelectedPoint(point)">
                     <td>@point.Name</td>
                     <td>@point.Id</td>
-                    <td>@point.CreatedAt</td>
-                    <td>@point.UpdatedAt</td>
+                    <td>@DateTimeHelpers.UtcTime2Local(point.CreatedAt)</td>
+                    <td>@DateTimeHelpers.UtcTime2Local(point.UpdatedAt)</td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Unit </td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>

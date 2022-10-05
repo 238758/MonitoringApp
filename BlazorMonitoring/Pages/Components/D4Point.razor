@@ -1,5 +1,5 @@
 ﻿@using FM4017Library.Dtos
-
+@using FM4017Library.Helpers
 
 
 <div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
@@ -8,14 +8,14 @@
     <a target="_blank" href="@ImageUrl"><img src=@ImageUrl style="height:80px"></a>
     
     @*Name*@
-    <h3 class="py-2">@prettifyName(Name)</h3>
+    <h3 class="py-2">@PrettifyName(Name)</h3>
 
     @*Value unit*@
     @if (LastUniqueSignals != null)
         {
             @foreach (var signal in LastUniqueSignals)
             {
-                <h2>@signal.Data?.RawValue @prettifyUnits(signal.Unit)</h2>
+                <h2>@signal.Data?.RawValue @PrettifyUnits(signal.Unit)</h2>
             }
         }
     
@@ -55,7 +55,10 @@
 
     private string? Updated
     {
-        get { return MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Timestamp?.ToString("dd-MM-yy HH:mm"); }
+        get 
+        {
+            return DateTimeHelpers.UtcTime2Local(MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Timestamp)?.ToString("dd-MM-yy HH:mm"); 
+        }
     }
 
     private string? ImageUrl
@@ -100,7 +103,7 @@
         }
     }
 
-    private string? prettifyUnits(string? unit)
+    private string? PrettifyUnits(string? unit)
     {
         if (unit == "CELSIUS_DEGREES")
         {
@@ -114,7 +117,7 @@
         return unit;
     }
 
-    private string? prettifyName(string? name)
+    private string? PrettifyName(string? name)
     {
         return name?.Replace("_", " ");
     }

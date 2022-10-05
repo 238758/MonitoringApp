@@ -1,4 +1,6 @@
 ﻿@using FM4017Library.Dtos
+@using FM4017Library.Helpers
+
 <h5>Signals in selected Point</h5>
 
 <table class="table table-striped table-light table-hover">
@@ -21,11 +23,11 @@
             {
                 <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>
-                    <td>@signal.Timestamp</td>
+                    <td>@DateTimeHelpers.UtcTime2Local(signal.Timestamp)</td>
                     <td>@signal.Unit</td>
                     <td>@signal.Data?.RawValue</td>
-                    <td>@signal.CreatedAt</td>
-                    <td>@signal.UpdatedAt</td>
+                    <td>@DateTimeHelpers.UtcTime2Local(signal.CreatedAt)</td>
+                    <td>@DateTimeHelpers.UtcTime2Local(signal.UpdatedAt)</td>
                     <td>@signal.Metadata?.SignalStrength</td>
                     <td>@signal.Metadata?.Snr</td>
                 </tr>

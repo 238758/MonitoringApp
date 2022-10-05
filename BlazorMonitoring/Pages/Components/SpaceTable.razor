@@ -23,7 +23,7 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
             <th>Longitude</th>
             <th>Sub Spaces</th>
             <th>Points</th>
-            <th>Image Url</th>
+            <th>Image</th>
         </tr>
     </thead>
     <tbody>
@@ -40,6 +40,10 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
                     <td>@space.Metadata?.Longitude?.ToString("0.###")</td>
                     <td>@Spaces.Count(s => s.Parent?.Id == space.Id)</td>
                     <td>@space.Points?.PointNodes?.Count</td>
+                    @if (!string.IsNullOrEmpty(space?.Metadata?.ImageUrl))
+                    {
+                        <td><a target="_blank" href="@space?.Metadata?.ImageUrl?">Show</a></td>
+                    }
                 </tr>
             }
         }

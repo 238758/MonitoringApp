@@ -3,7 +3,9 @@
 
 <div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
 
-    <img src=@MyPoint?.ImageUrl style=" height:80px">
+    @*<img src=@MyPoint?.ImageUrl style=" height:80px">*@
+    <a target="_blank" href="@MyPoint?.ImageUrl"><img src=@MyPoint?.ImageUrl style="height:80px"></a>
+
     <h3 class="py-2">@MyPoint?.Name</h3>
     <h2>@MyPoint?.signals?.LastOrDefault()?.Value @MyPoint?.signals?.LastOrDefault()?.Unit</h2>
 

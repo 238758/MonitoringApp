@@ -19,7 +19,7 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Signals</th>
-            <th>Image Url</th>
+            <th>Image</th>
         </tr>
     </thead>
     <tbody>
@@ -39,7 +39,10 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
                     <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
                     <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
                     <td>@point?.Signals?.SignalNodes?.Count</td>
-                    @*<td>@point?.Metadata?.ImageUrl?</td>*@
+                    @if (! string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))
+                    {
+                        <td><a target="_blank" href="@point?.Metadata?.ImageUrl?">Show</a></td>
+                    }
                 </tr>
             }
         }

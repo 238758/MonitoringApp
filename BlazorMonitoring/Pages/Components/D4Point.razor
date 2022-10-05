@@ -5,8 +5,8 @@
 <div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
 
     @*Image*@
-    <img src=@ImageUrl style=" height:80px">
-
+    <a target="_blank" href="@ImageUrl"><img src=@ImageUrl style="height:80px"></a>
+    
     @*Name*@
     <h3 class="py-2">@prettifyName(Name)</h3>
 
@@ -108,7 +108,7 @@
         }
         else if (unit == "PERCENTS")
         {
-            return "%";
+            return "% RH";
         }
 
         return unit;
@@ -118,5 +118,9 @@
     {
         return name?.Replace("_", " ");
     }
+
+
+
+
 }
 

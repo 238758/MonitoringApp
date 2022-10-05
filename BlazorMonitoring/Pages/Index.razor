@@ -3,27 +3,35 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Appsettings, Dimension Four</h1>
-
+<h3>Appsettings</h3>
+<br />
+<h5>Dimension Four connection</h5>
 
 <p>
     Api_url Value: @Api_url
 </p>
 
 <p>
-    Header1Name value: @Header1Name
+    Header1Name: @Header1Name
 </p>
 
 <p>
-    Header1Value value: @Header1Value
+    Header1Value: @Header1Value
 </p>
 
 <p>
-    Header2Name value: @Header2Name
+    Header2Name: @Header2Name
 </p>
 
 <p>
-    @*Header2Value value: @Header2Value*@
+    @*Header2Value: @Header2Value*@
+    Header2Value: ******
+</p>
+
+<br />
+<h5>Various</h5>
+<p>
+    PollRateMinutes: @PollRateMinutes
 </p>
 
 @code {
@@ -33,6 +41,8 @@
     string Header2Name = "";
     string Header2Value = "";
 
+    string PollRateMinutes = "";
+
     protected override void OnInitialized()
     {
         Api_url = _config["DimensionFour:ApiUrl"];
@@ -41,5 +51,6 @@
         Header2Name = _config["DimensionFour:Header2Name"];
         Header2Value = _config["DimensionFour:Header2Value"];
 
+        PollRateMinutes = _config["PollRateMinutes"];
     }
 }

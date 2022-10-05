@@ -10,7 +10,12 @@
     Updated: @MyPoint?.signals?.LastOrDefault()?.Timestamp.ToString("dd-MM-yy HH:mm") <br />
 
     <hr size="10" style="color:#1b1a5a;">
-    Lat: @MyPoint?.Latitude Long: @MyPoint?.Longitude
+    Longitude: @MyPoint?.Longitude Latitude: @MyPoint?.Latitude
+    <br />
+    @if (MyPoint?.Latitude != null && MyPoint?.Longitude != null)
+    {
+        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@MyPoint?.Longitude,@MyPoint?.Latitude "><span class="oi oi-location">Show on map</span></a>
+    }
 
 </div>
 

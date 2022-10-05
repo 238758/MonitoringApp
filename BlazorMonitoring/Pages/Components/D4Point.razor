@@ -26,7 +26,13 @@
     <hr size="10" style="color:#1b1a5a;">
 
     @*Lat Long*@
-    Lat: @Latitude Long: @Longitude
+    Longitude: @Longitude Lattitude: @Latitude
+    <br />
+    @if (Latitude != null && Longitude != null)
+    {
+        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@Longitude,@Latitude "><span class="oi oi-location">Show on map</span></a>
+    }
+    
 
 </div>
 

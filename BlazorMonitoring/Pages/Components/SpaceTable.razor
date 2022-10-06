@@ -35,8 +35,8 @@ Selected Space: @_selectedSpace?.Name (id: @_selectedSpace?.Id)
                 <tr @onclick="() => _selectedSpace = space">
                     <td>@space.Name</td>
                     <td>@space.Id</td>
-                    <td>@DateTimeHelpers.UtcTime2Local(space.CreatedAt)</td>
-                    <td>@DateTimeHelpers.UtcTime2Local(space.UpdatedAt)</td>
+                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.CreatedAt))</td>
+                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.UpdatedAt))</td>
                     <td>@space.Metadata?.Latitude?.ToString("0.###")</td>
                     <td>@space.Metadata?.Longitude?.ToString("0.###")</td>
                     <td>@Spaces.Count(s => s.Parent?.Id == space.Id)</td>

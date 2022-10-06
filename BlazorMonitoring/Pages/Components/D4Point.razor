@@ -57,7 +57,9 @@
     {
         get 
         {
-            return DateTimeHelpers.UtcTime2Local(MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Timestamp)?.ToString("dd-MM-yy HH:mm"); 
+            var localTime = DateTimeHelpers.UtcTime2Local(MyPoint?.Signals?.SignalNodes?.LastOrDefault()?.Timestamp);
+            var formattedTime = DateTimeHelpers.DateTimePrintFormatter(localTime);
+            return formattedTime;
         }
     }
 

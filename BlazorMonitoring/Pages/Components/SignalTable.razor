@@ -6,7 +6,7 @@
 <table class="table table-striped table-light table-hover">
     <thead>
         <tr>
-            <th>Signal Id</th>
+            <th>Id</th>
             <th>Timestamp</th>
             <th>Unit</th>
             <th>Value</th>
@@ -23,11 +23,11 @@
             {
                 <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>
-                    <td>@DateTimeHelpers.UtcTime2Local(signal.Timestamp)</td>
+                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.Timestamp))</td>
                     <td>@signal.Unit</td>
                     <td>@signal.Data?.RawValue</td>
-                    <td>@DateTimeHelpers.UtcTime2Local(signal.CreatedAt)</td>
-                    <td>@DateTimeHelpers.UtcTime2Local(signal.UpdatedAt)</td>
+                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.CreatedAt))</td>
+                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.UpdatedAt))</td>
                     <td>@signal.Metadata?.SignalStrength</td>
                     <td>@signal.Metadata?.Snr</td>
                 </tr>

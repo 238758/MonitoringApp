@@ -1,0 +1,40 @@
+JSON 
+<a href="https://app.quicktype.io" title="Quicktype - helps infer and produce types and JSON (de)serializers for e.g. C#">app.quicktype.io</a> <br/>
+<a href="https://jsoneditoronline.org">jsoneditoronline.org</a>
+
+Themes 
+<a href="https://bootswatch.com/">bootswatch.com/</a>
+<br /><br />
+
+
+<h5>Youtube</h5>
+Blazor API Client using REST & GraphQL APIs - Full Course 
+<a href="https://www.youtube.com/watch?v=agIJTnpfFGA">https://www.youtube.com/watch?v=agIJTnpfFGA</a> 
+
+Blazor Server Components - Making Razor Components Easy to Use 
+<a href="https://www.youtube.com/watch?v=JE0tQ4tx0Nc&t=1272s">https://www.youtube.com/watch?v=JE0tQ4tx0Nc&t=1272s</a>
+
+Intro to Blazor Server Side - Includes SQL Data Access and Best Practices
+<a href="https://www.youtube.com/watch?v=8DNgdphLvag&t=120s">https://www.youtube.com/watch?v=8DNgdphLvag&t=120s</a>
+
+
+
+<h5>Microsoft</h5>
+
+Blazor server
+<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/server?view=aspnetcore-6.0">https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/server?view=aspnetcore-6.0</a>
+
+Binding across components
+<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-6.0#binding-with-component-parameters">https://learn.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-6.0#binding-with-component-parameters</a>
+
+Free Azure services
+<a href="https://azure.microsoft.com/en-in/pricing/free-services/">https://azure.microsoft.com/en-in/pricing/free-services/</a>
+
+ASP.NET Core Blazor
+<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0"></a>
+
+
+<h5>Web stuff</h5>
+
+Introduction to the DOM
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction"></a>

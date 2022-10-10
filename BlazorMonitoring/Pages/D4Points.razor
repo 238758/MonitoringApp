@@ -1,16 +1,60 @@
-﻿@page "/D4Points"
+﻿@page "/"
 @using BlazorMonitoring.Pages.Components
+@using FM4017Library.Dtos
+@using System.ComponentModel
 @inject IConfiguration _config
+@inject DataAccess dataAccess
 
-<div class="row">
-    @foreach (var point in _pointList)
-    {
-        <div class="col-md-4">
-            <D4Point Mypoint=@point></D4Point>
-        </div>
-    }
-</div>
+@if (dataAccess?.SpaceNodes is null)
+{
+    <p><em>Loading...</em></p>
+}
+
+else
+{
+    <div class="row">
+        @foreach (var point in GetPoints(dataAccess.SpaceNodes))
+        {
+            <div class="col-md-4">
+                <D4Point Mypoint=@point></D4Point>
+            </div>
+        }
+    </div>
+}
+
 
 @code {
 
+    protected override void OnInitialized()
+    {
+        dataAccess.PropertyChanged += PropertyHasChanged;
+    }
+
+    private void PropertyHasChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    // Get all points in nested space list
+    private List<PointNode> GetPoints(List<SpaceNode>? spaceNodes)
+    {
+        List<PointNode> result = new();
+
+        if (spaceNodes is not null)
+        {
+            foreach (var space in spaceNodes)
+            {
+                if (space?.Points?.PointNodes is not null)
+                {
+                    foreach (var point in space.Points.PointNodes)
+                    {
+                        result.Add(point);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 }

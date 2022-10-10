@@ -1,21 +1,31 @@
 ﻿@page "/D4Tenant"
 @using BlazorMonitoring.Pages.Components
-@inject IConfiguration _config
+@using System.ComponentModel
+@using FM4017Library.Dtos
+@inject IConfiguration config
+@inject DataAccess dataAccess
 
+<h3>dimension four tenant: @config["dimensionfour:header1value"]</h3>
 
-<h3>Dimension Four tenant: @_d4TenantName</h3>
-@*updated: @_updateDateTime*@
-
-@if (_spaceNodes == null)
+@if (dataAccess?.SpaceNodes is null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <SpaceTable Spaces="@_spaceNodes"  />
-
+    <SpaceTable Spaces="@dataAccess.SpaceNodes" />
 }
 
+
 @code {
-    
+
+    protected override void OnInitialized()
+    {
+        dataAccess.PropertyChanged += PropertyHasChanged;
+    }
+
+    private void PropertyHasChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        InvokeAsync(StateHasChanged);
+    }
 }

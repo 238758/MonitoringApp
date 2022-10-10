@@ -1,3 +1,4 @@
+using BlazorMonitoring.Data;
 using FM4017Library.DataServices;
 
 
@@ -16,6 +17,10 @@ builder.Services.AddHttpClient<ID4DataService, GraphQLD4DataService>
                 dimensionFourDataService.DefaultRequestHeaders.Add(builder.Configuration["DimensionFour:Header1Name"], builder.Configuration["DimensionFour:Header1Value"]);
                 dimensionFourDataService.DefaultRequestHeaders.Add(builder.Configuration["DimensionFour:Header2Name"], builder.Configuration["DimensionFour:Header2Value"]);
             });
+
+// Service to get Data, shared by all pages/ components
+builder.Services.AddScoped<DataAccess>();
+
 
 var app = builder.Build();
 

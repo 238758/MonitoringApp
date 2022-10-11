@@ -2,8 +2,11 @@
 @using BlazorMonitoring.Pages.Components
 @using FM4017Library.Dtos
 @using System.ComponentModel
-@inject IConfiguration _config
+@inject IConfiguration config
 @inject DataAccess dataAccess
+
+
+
 
 @if (dataAccess?.SpaceNodes is null)
 {
@@ -15,15 +18,22 @@ else
     <div class="row">
         @foreach (var point in GetPoints(dataAccess.SpaceNodes))
         {
-            <div class="col-md-4">
-                <D4Point Mypoint=@point></D4Point>
-            </div>
+            @if (point?.Metadata?.ImageUrl is not null || ShowPointsWithoutImage)
+            {
+                <div class="col-md-4">
+                    <D4Point Mypoint=@point></D4Point>
+                </div>
+            }
+
+            
         }
     </div>
 }
 
 
 @code {
+    public bool ShowPointsWithoutImage { get; set; } = false;
+
 
     protected override void OnInitialized()
     {

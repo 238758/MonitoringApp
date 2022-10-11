@@ -2,13 +2,10 @@
 @using FM4017Library.Helpers
 
 <h5>Points in selected Space </h5>
-Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
-
-@*Timestamp child test: @ChildSelectedSignal?.Timestamp*@
-
+Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
 
 <table class="table table-striped table-light table-hover">
-    <thead>
+    <thead class="table-dark">
         <tr>
             <th>Name</th>
             <th>Id</th>
@@ -25,17 +22,17 @@ Selected Point: @SelectedPoint?.Name (id: @SelectedPoint?.Id)
         </tr>
     </thead>
     <tbody>
-        @if (Points != null)
+        @if (Points is not null)
         {
             @foreach (var point in Points)
             {
-                <tr @onclick="() => ChangeSelectedPoint(point)">
+                <tr @onclick="() => ChangeSelectedPoint(point!)">
                     <td>@point.Name</td>
                     <td>@point.Id</td>
                     <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.CreatedAt))</td>
                     <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.UpdatedAt))</td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
-                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Unit </td>
+                    <td>@Prettify.Unit(point?.Signals?.SignalNodes?.LastOrDefault()?.Unit) </td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
                     <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
                     <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>

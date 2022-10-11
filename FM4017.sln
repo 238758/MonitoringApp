@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 	ProjectSection(SolutionItems) = preProject
 		Links.txt = Links.txt
 		BlazorMonitoring\Pages\PointList.cs = BlazorMonitoring\Pages\PointList.cs
+		BlazorMonitoring\Pages\PointList.razor = BlazorMonitoring\Pages\PointList.razor
 	EndProjectSection
 EndProject
 Global

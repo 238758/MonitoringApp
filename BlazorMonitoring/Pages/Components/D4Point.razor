@@ -2,20 +2,22 @@
 @using FM4017Library.Helpers
 
 
-<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 20px">
+@*<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 30px">*@
+<div class="alert" style="background-color:white; text-align:center; border-radius: 30px">
 
     @*Image*@
-    <a target="_blank" href="@ImageUrl"><img src=@ImageUrl style="height:80px"></a>
+    @*<a target="_blank" href="@ImageUrl"><img src=@ImageUrl style="height:80px"></a>*@
+    <a target="_blank" href="@ImageUrl"><img src=@ImageUrl class="img-fluid"></a>
     
     @*Name*@
-    <h3 class="py-2">@PrettifyName(Name)</h3>
+    <h5 class="py-2">@Prettify.Name(Name)</h5>
 
     @*Value unit*@
     @if (LastUniqueSignals != null)
         {
             @foreach (var signal in LastUniqueSignals)
             {
-                <h2>@signal.Data?.RawValue @PrettifyUnits(signal.Unit)</h2>
+                <h2>@signal.Data?.RawValue @Prettify.Unit(signal.Unit)</h2>
             }
         }
     
@@ -23,7 +25,8 @@
     Updated: @Updated <br />
 
     @*line*@
-    <hr size="10" style="color:#1b1a5a;">
+    @*<hr size="10" style="color:#1b1a5a;">*@
+    <hr class="border border-primary border-3 opacity-25">
 
     @*Lat Long*@
     Longitude: @Longitude Lattitude: @Latitude
@@ -103,24 +106,24 @@
         }
     }
 
-    private string? PrettifyUnits(string? unit)
-    {
-        if (unit == "CELSIUS_DEGREES")
-        {
-            return "°C";
-        }
-        else if (unit == "PERCENTS")
-        {
-            return "% RH";
-        }
+    //private string? PrettifyUnits(string? unit)
+    //{
+    //    if (unit == "CELSIUS_DEGREES")
+    //    {
+    //        return "°C";
+    //    }
+    //    else if (unit == "PERCENTS")
+    //    {
+    //        return "% RH";
+    //    }
 
-        return unit;
-    }
+    //    return unit;
+    //}
 
-    private string? PrettifyName(string? name)
-    {
-        return name?.Replace("_", " ");
-    }
+    //private string? PrettifyName(string? name)
+    //{
+    //    return name?.Replace("_", " ");
+    //}
 
 
 

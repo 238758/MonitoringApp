@@ -9,9 +9,12 @@
 </div>
 
 
+
+
+
+
 <h5>Subspaces in selected Space</h5>
 Selected Space: @_selectedSpace?.Name @*(id: @_selectedSpace?.Id)*@
-
 
 <table class="table table-striped table-light table-hover">
     <thead class="table-dark">
@@ -25,6 +28,8 @@ Selected Space: @_selectedSpace?.Name @*(id: @_selectedSpace?.Id)*@
             <th>Sub Spaces</th>
             <th>Points</th>
             <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -32,24 +37,29 @@ Selected Space: @_selectedSpace?.Name @*(id: @_selectedSpace?.Id)*@
         {
             @foreach (var space in Spaces.Where(s => s.Parent?.Id == _selectedSpace?.Id))
             {
-                <tr @onclick="() => _selectedSpace = space">
-                    <td>@space.Name</td>
-                    <td>@space.Id</td>
-                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.CreatedAt))</td>
-                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.UpdatedAt))</td>
-                    <td>@space.Metadata?.Latitude?.ToString("0.###")</td>
-                    <td>@space.Metadata?.Longitude?.ToString("0.###")</td>
-                    <td>@Spaces.Count(s => s.Parent?.Id == space.Id)</td>
-                    <td>@space.Points?.PointNodes?.Count</td>
+                <tr >
+                    <td @onclick="() => _selectedSpace = space">@space.Name</td>
+                    <td @onclick="() => _selectedSpace = space">@space.Id</td>
+                    <td @onclick="() => _selectedSpace = space">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.CreatedAt))</td>
+                    <td @onclick="() => _selectedSpace = space">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(space.UpdatedAt))</td>
+                    <td @onclick="() => _selectedSpace = space">@space.Metadata?.Latitude?.ToString("0.###")</td>
+                    <td @onclick="() => _selectedSpace = space">@space.Metadata?.Longitude?.ToString("0.###")</td>
+                    <td @onclick="() => _selectedSpace = space">@Spaces.Count(s => s.Parent?.Id == space.Id)</td>
+                    <td @onclick="() => _selectedSpace = space">@space.Points?.PointNodes?.Count</td>
+                    <td>
                     @if (!string.IsNullOrEmpty(space?.Metadata?.ImageUrl))
                     {
-                        <td><a target="_blank" href="@space?.Metadata?.ImageUrl?">Show</a></td>
+                        <a target="_blank" href="@space?.Metadata?.ImageUrl?">Show</a>
                     }
+                    </td>
+                    <td><SpaceModalEdit Space="space" /></td>
+                    <td><SpaceModalDelete Space="space" /></td>
                 </tr>
             }
         }
     </tbody>
 </table>
+<SpaceModalCreate ParentSpace="_selectedSpace" />
 
 <br />
 <br />

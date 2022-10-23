@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FM4017Library.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,40 @@ namespace FM4017Library.DataModels
         public string? Id { get; set; }
         public string? PointId { get; set; }
         public string? Unit { get; set; }
-        public string? MetaData { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? Timestamp { get; set; }
+        
         public string? Value { get; set; }
-        public DateTime Timestamp { get; set; }
 
         // derived from metadata
-        /// <summary>
-        /// Received Signal Strength Indicator
-        /// </summary>
         public string? ReceivedSignalStrengthIndicator { get; set; }
-        /// <summary>
-        /// Signal to Noise Ratio
-        /// </summary>
         public string? Snr { get; set; }
         public string? BatteryLevel { get; set; }
 
+
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public Signal()
+        {
+
+        }
+
+        public Signal(SignalNode signalNode)
+        {
+            Id = signalNode.Id;
+            PointId = signalNode.PointId;
+            Unit = signalNode.Unit;
+            CreatedAt = signalNode.CreatedAt;
+            UpdatedAt = signalNode.UpdatedAt;
+            Timestamp = signalNode.Timestamp;
+
+            Value = signalNode?.Data?.RawValue;
+
+            ReceivedSignalStrengthIndicator = signalNode?.Metadata?.SignalStrength;
+            Snr = signalNode?.Metadata?.Snr;
+            //BatteryLevel = signalNode.
+        }
     }
 }

@@ -52,8 +52,8 @@ namespace FM4017Library.DataModels.Sample
                     Unit= _unit[_rand.Next(_unit.Count)],
                     Timestamp = DateTime.Now.AddMinutes(_rand.Next()).AddSeconds(_rand.Next())
                 }};
-            Latitude = (_rand.NextDouble() * 100).ToString("00.000");
-            Longitude = (_rand.NextDouble() * 100).ToString("00.000");
+            Latitude = (_rand.NextDouble() * 100);
+            Longitude = (_rand.NextDouble() * 100);
             ImageUrl = _imageUrls[_rand.Next(_imageUrls.Count)];
         }
     }

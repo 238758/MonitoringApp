@@ -2,14 +2,7 @@
 @using FM4017Library.Helpers
 
 
-
-@*<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 30px">*@
 <div class="alert" style="background-color:white; text-align:center; border-radius: 30px">
-
-    @*Image*@
-    <a target="_blank" href="@ImageUrl"><img src=@ImageUrl class="img-fluid"></a>
-    
-    @*<SignalChart SignalNodes="@(MyPoint?.Signals?.SignalNodes)"></SignalChart>*@
 
     @*Name*@
     <h5 class="py-2">@Prettify.Name(Name)</h5>
@@ -26,16 +19,79 @@
     @*Last updated*@
     Updated: @Updated <br />
 
-    @*line*@
-    <hr class="border border-primary border-3 opacity-25">
+    
 
-    @*Lat Long*@
-    Longitude: @Longitude Lattitude: @Latitude
-    <br />
-    @if (Latitude != null && Longitude != null)
+
+    @*Display on/off*@
+    @if (true)
     {
-        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@Longitude,@Latitude "><span class="oi oi-location">Show on map</span></a>
+    @if (ShowImage)
+    {
+        <button class="btn-secondary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
     }
+    else
+    {
+        <button class="btn-primary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
+    }
+    @if (ShowChart)
+    {
+        <button class="btn-secondary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+
+    }
+    else
+    {
+        <button class="btn-primary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+    }
+    @if (ShowLocation)
+    {
+        <button class="btn-secondary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+    }
+    else
+    {
+        <button class="btn-primary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+    }
+    }
+
+    @*line*@
+    @if (ShowImage || ShowChart)
+    {
+        <hr class="border border-primary border-3 opacity-25">
+    }
+
+    @*Image*@
+    @if (ShowImage)
+    {
+        <a target="_blank" href="@ImageUrl"><img src=@ImageUrl class="img-fluid"></a>
+    }
+    
+    @*Chart*@
+    @if (ShowChart)
+    {
+        <SignalChart SignalNodes="@(MyPoint?.Signals?.SignalNodes)"></SignalChart>   
+    }
+
+   
+
+    
+
+
+    @if (ShowLocation)
+    {
+        @*line*@
+        <hr class="border border-primary border-3 opacity-25">
+
+        <p>Location:
+        <br/>
+        Longitude: @Longitude Latitude: @Latitude 
+        
+        @if (Latitude != null && Longitude != null)
+        {
+            <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@Longitude,@Latitude "><span class="oi oi-location">Show on map</span></a>
+        }
+        </p>
+    }
+
+    
     
 
 </div>
@@ -44,6 +100,12 @@
 @code {
     ////// Todo Slettes, kun for test
     bool overrideImageUrl = true;
+
+
+    public bool ShowImage { get; set; } = true;
+    public bool ShowChart { get; set; } = true;
+    public bool ShowLocation { get; set; } = true;
+
 
     [Parameter]
     public PointNode? MyPoint { get; set; }
@@ -121,6 +183,7 @@
             return result; 
         }
     }
+
 
 }
 

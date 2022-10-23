@@ -37,16 +37,32 @@
 
 </EditForm>
 
+@if (ShowInvalidUser)
+{
+    <br />
+    <p>Invalid user</p>
+}
+
 @code {
     private AuthenticationUserModel model = new();
 
     private bool _showAuthenticationError = false;
     private string? _authenticationErrorText = "";
 
+    public bool ShowInvalidUser { get; set; } = false;
+
+
+
+
     private async Task ExecuteLogin()
     {
         _showAuthenticationError = false;
 
+        if (model.Email != "231216@usn.no")
+        {
+            ShowInvalidUser = true;
+        }
+        
         
     }
 }

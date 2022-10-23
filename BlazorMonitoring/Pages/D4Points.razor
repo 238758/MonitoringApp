@@ -15,10 +15,21 @@
 
 else
 {
+    @if (ShowPointsWithoutSignals)
+    {
+        <button class="btn-secondary" @onclick="(() => ShowPointsWithoutSignals = !ShowPointsWithoutSignals)">Show Points Without Signals</button>
+    }
+    else
+    {
+        <button class="btn-primary" @onclick="(() => ShowPointsWithoutSignals = !ShowPointsWithoutSignals)">Show Points Without Signals</button>
+    }
+    <br />
+    <br />
+
     <div class="row">
         @foreach (var point in GetPoints(dataAccess.SpaceNodes))
         {
-            @if (point?.Metadata?.ImageUrl is not null || ShowPointsWithoutImage)
+            @if (point?.Signals?.SignalNodes?.FirstOrDefault() is not null || ShowPointsWithoutSignals)
             {
                 <div class="col-md-4">
                     <D4Point Mypoint=@point></D4Point>
@@ -32,7 +43,7 @@ else
 
 
 @code {
-    public bool ShowPointsWithoutImage { get; set; } = false;
+    public bool ShowPointsWithoutSignals { get; set; } = false;
 
 
     protected override void OnInitialized()

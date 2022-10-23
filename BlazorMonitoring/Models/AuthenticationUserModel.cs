@@ -4,7 +4,9 @@ namespace BlazorMonitoring.Models;
 
 public class AuthenticationUserModel
 {
-    [Required(ErrorMessage = "Email Address is required.")]
+    //[Required(ErrorMessage = "Email Address is required.")]
+    [Required]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
     public string? Email { get; set; }
 
     [Required(ErrorMessage = "Password is required.")]

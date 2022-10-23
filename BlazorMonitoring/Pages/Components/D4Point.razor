@@ -2,13 +2,15 @@
 @using FM4017Library.Helpers
 
 
+
 @*<div class="alert" style="background-color:#eef1ff; text-align:center; border-radius: 30px">*@
 <div class="alert" style="background-color:white; text-align:center; border-radius: 30px">
 
     @*Image*@
-    @*<a target="_blank" href="@ImageUrl"><img src=@ImageUrl style="height:80px"></a>*@
     <a target="_blank" href="@ImageUrl"><img src=@ImageUrl class="img-fluid"></a>
     
+    @*<SignalChart SignalNodes="@(MyPoint?.Signals?.SignalNodes)"></SignalChart>*@
+
     @*Name*@
     <h5 class="py-2">@Prettify.Name(Name)</h5>
 
@@ -25,7 +27,6 @@
     Updated: @Updated <br />
 
     @*line*@
-    @*<hr size="10" style="color:#1b1a5a;">*@
     <hr class="border border-primary border-3 opacity-25">
 
     @*Lat Long*@
@@ -41,6 +42,9 @@
 
 
 @code {
+    ////// Todo Slettes, kun for test
+    bool overrideImageUrl = true;
+
     [Parameter]
     public PointNode? MyPoint { get; set; }
 
@@ -66,7 +70,19 @@
 
     private string? ImageUrl
     {
-        get { return MyPoint?.Metadata?.ImageUrl; }
+        get 
+        { 
+            if (MyPoint?.Id == "63230e49eac7b9be6beb2983" && overrideImageUrl)
+            {
+                return "https://www.adeunis.com/wp-content/uploads/2020/07/temperature-capteur-iot-lorawan-sigfox-lpwan-adeunis-temp.jpg";
+            }
+            if (MyPoint?.Id == "63230f2eeac7b9f938eb29b1" && overrideImageUrl)
+            {
+                return "https://www.adeunis.com/wp-content/uploads/2018/10/TEMPERATURE-HUMIDITE3.jpg";
+            }
+
+            return MyPoint?.Metadata?.ImageUrl; 
+        }
     }
 
     private string? Name
@@ -105,28 +121,6 @@
             return result; 
         }
     }
-
-    //private string? PrettifyUnits(string? unit)
-    //{
-    //    if (unit == "CELSIUS_DEGREES")
-    //    {
-    //        return "°C";
-    //    }
-    //    else if (unit == "PERCENTS")
-    //    {
-    //        return "% RH";
-    //    }
-
-    //    return unit;
-    //}
-
-    //private string? PrettifyName(string? name)
-    //{
-    //    return name?.Replace("_", " ");
-    //}
-
-
-
 
 }
 

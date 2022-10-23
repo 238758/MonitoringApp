@@ -1,12 +1,16 @@
 using BlazorMonitoring.Data;
 using FM4017Library.DataServices;
-
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddSyncfusionBlazor();
+
+//License (free for personal and small business use - ref syncfusion.com)
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SfLicense"]);
 
 // Using httpclient factory to register a dataservice requesting an interface
 // Making the service available for dependency injection (DI), giving loose coupling to the concrete implementation

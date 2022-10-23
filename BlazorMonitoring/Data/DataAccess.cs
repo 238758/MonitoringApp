@@ -1,4 +1,5 @@
-﻿using FM4017Library.DataServices;
+﻿using FM4017Library.DataModels;
+using FM4017Library.DataServices;
 using FM4017Library.Dtos;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,10 +13,11 @@ public class DataAccess : INotifyPropertyChanged
 
     private System.Timers.Timer? _updateTimer;
     private List<SpaceNode>? _spaceNodes;
+    private List<Space> _spaces;
 
     public List<SpaceNode>? SpaceNodes
     {
-        get => _spaceNodes; 
+        get => _spaceNodes;
         set
         {
             if (value != _spaceNodes)
@@ -25,6 +27,14 @@ public class DataAccess : INotifyPropertyChanged
             }
         }
     }
+
+
+
+
+
+
+
+
 
     // Dependency injection
     private readonly ID4DataService _d4DataService;

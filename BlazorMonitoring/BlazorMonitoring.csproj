@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>660f10bd-00c0-4227-ac41-88d7090611d3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,10 @@
   <ItemGroup>
     <Folder Include="Authentication\" />
     <Folder Include="Publish\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor.Charts" Version="20.3.0.49" />
   </ItemGroup>
 
 

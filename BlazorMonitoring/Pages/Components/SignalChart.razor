@@ -1,0 +1,81 @@
+﻿@using FM4017Library.Dtos
+
+<SfChart>
+    <ChartPrimaryXAxis Title="TimeStamp" ValueType="Syncfusion.Blazor.Charts.ValueType.Category"></ChartPrimaryXAxis>
+    <ChartPrimaryYAxis Title="Value"></ChartPrimaryYAxis>
+    <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
+    <ChartLegendSettings Visible="true"></ChartLegendSettings>
+    <ChartSeriesCollection>
+        @*@foreach (var signals in UniqueSignalsLists)
+        {*@
+            <ChartSeries DataSource="@Signals" Name="°C" XName="TimeStamp" YName="Value" Type="ChartSeriesType.Line">
+            </ChartSeries>
+        @*}*@
+
+        
+        
+    </ChartSeriesCollection>
+</SfChart>
+
+@code {
+    [Parameter]
+    public List<SignalNode>? SignalNodes { get; set; }
+
+
+
+    // Todo, check # units - filter to seperate lists and plot
+
+    public List<Signal>? Signals 
+    {
+        get 
+        {
+            List<Signal> result = new List<Signal>();
+
+            if (SignalNodes is not null)
+            {
+                foreach (var signal in SignalNodes)
+                {
+                    if (signal?.Timestamp is not null)
+                    {
+                        result.Add(new Signal { 
+                            TimeStamp = signal.Timestamp!.Value, 
+                            Value = Convert.ToDouble(signal?.Data?.RawValue) });
+                    }
+                }
+            }
+            return result; 
+        }
+    }
+
+    //public List<List<Signal>>? UniqueSignalsLists
+    //{
+    //    get
+    //    {
+    //        List<List<Signal>> result;
+    //        List<Signal> tempResult = new List<Signal>();
+
+    //        if (SignalNodes is not null)
+    //        {
+    //            foreach (var signal in SignalNodes)
+    //            {
+    //                if (signal?.Timestamp is not null)
+    //                {
+    //                    tempResult.Add(new Signal
+    //                        {
+    //                            TimeStamp = signal.Timestamp!.Value,
+    //                            Value = Convert.ToDouble(signal?.Data?.RawValue)
+    //                        });
+    //                }
+    //            }
+    //        }
+    //        return tempResult;
+    //    }
+    //}
+
+
+    public class Signal
+    {
+        public DateTime TimeStamp { get; set; }
+        public double Value { get; set; }
+    }
+}

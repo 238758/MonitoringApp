@@ -19,13 +19,13 @@ namespace FM4017Library.DataModels
 
         // derived from metadata
         /// <summary>
-        /// RSSI
+        /// Received Signal Strength Indicator
         /// </summary>
         public string? ReceivedSignalStrengthIndicator { get; set; }
         /// <summary>
-        /// SNR
+        /// Signal to Noise Ratio
         /// </summary>
-        public string? SignalToNoiseRatio { get; set; }
+        public string? Snr { get; set; }
         public string? BatteryLevel { get; set; }
 
     }

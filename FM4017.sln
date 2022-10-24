@@ -7,11 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMonitoring", "BlazorM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FM4017Library", "FM4017Library\FM4017Library.csproj", "{2A9F6E0E-E130-448C-82E3-76FBAEBC50CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{64E7EBD1-FA64-4439-8497-6771AABC5B67}"
-	ProjectSection(SolutionItems) = preProject
-		Links.txt = Links.txt
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FM4017LibraryTests", "FM4017LibraryTests\FM4017LibraryTests.csproj", "{5BFB36D2-59AE-4B48-89B3-026898D56637}"
 EndProject
 Global

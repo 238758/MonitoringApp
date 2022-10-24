@@ -7,10 +7,10 @@ namespace BlazorMonitoring.Models
         [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }
 
-        [Required(ErrorMessage = "Latitude is required.")]
+        //[Required(ErrorMessage = "Latitude is required.")]
         public string? Latitude { get; set; }
 
-        [Required(ErrorMessage = "Longitude is required.")]
+        //[Required(ErrorMessage = "Longitude is required.")]
         public string? Longitude { get; set; }
 
         //[Required(ErrorMessage = "Image Url is required.")]

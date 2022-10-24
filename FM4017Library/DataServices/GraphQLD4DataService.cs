@@ -1,11 +1,7 @@
 ﻿using FM4017Library.DataAccess.GraphQlQueries;
 using FM4017Library.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FM4017Library.DataServices;
 

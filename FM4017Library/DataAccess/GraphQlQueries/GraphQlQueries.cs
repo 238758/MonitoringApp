@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace FM4017Library.DataAccess.GraphQlQueries;
 
-namespace FM4017Library.DataAccess.GraphQlQueries
-{
-    public static class GraphQlQueries
+public static class GraphQlQueries
     {
         public static string GetAllPointsSignals = @"query {
 			points(paginate: { last: 100 }) {
@@ -74,7 +68,4 @@ namespace FM4017Library.DataAccess.GraphQlQueries
 				}
 			}
 		}";
-
-
     }
-}

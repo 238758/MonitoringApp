@@ -1,20 +1,34 @@
 ﻿@using FM4017Library.Dtos
+@using FM4017Library.Helpers
 
+@foreach (var signalNodes in signalNodesList)
+    {
 <div style="background-color:#eef1ff; border-radius: 30px; margin: 20px 0 0 0; padding: 10px">
-    <h5>Stats for [unit]</h5>
 
-    Max: 
-    <br />
+    <div style="background-color:white; border-radius:30px; padding: 5px 10px 5px 10px">
+        <h5>Stats for @Prettify.Unit(signalNodes?.FirstOrDefault()?.Unit)</h5>
 
-    Min:
-    <br />
+        Max:@signalNodes?.Max(x => x?.Data?.NumericValue)
+          
+        Min:@signalNodes?.Min(x => x?.Data?.NumericValue)
 
-    Avg
-    <br />
+        Avg:@signalNodes?.Average(x => x?.Data?.NumericValue)?.ToString("0.0")
+    </div>
+
+
+    
 
 </div>
-
+}
 @code {
     [Parameter]
     public List<SignalNode>? SignalNodes { get; set; }
+
+    private List<List<SignalNode>> signalNodesList 
+    {
+        get
+        {
+            return SignalNodeHelpers.SplitListToListsWithUniqueUnit(SignalNodes);
+        }
+    }
 }

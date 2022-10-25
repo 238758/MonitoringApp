@@ -22,6 +22,7 @@ public static class GraphQlQueries
 							metadata
 							data {
 								rawValue
+								numericValue
 							}
 						}
 					}
@@ -60,6 +61,7 @@ public static class GraphQlQueries
 							metadata
 							data {
 								rawValue
+								numericValue
 									}
 								}
 							}

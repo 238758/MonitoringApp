@@ -79,7 +79,7 @@
     @*Stats*@
     @if (ShowStats)
     {
-        <SignalStats></SignalStats>
+        <SignalStats SignalNodes="@(MyPoint?.Signals?.SignalNodes)"></SignalStats>
     }
     
     @if (ShowLocation)

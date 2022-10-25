@@ -165,6 +165,9 @@ public partial class SignalData
 {
     [JsonPropertyName("rawValue")]
     public string? RawValue { get; set; }
+
+    [JsonPropertyName("numericValue")]
+    public double? NumericValue { get; set; }
 }
 
 public partial class SignalMetadata

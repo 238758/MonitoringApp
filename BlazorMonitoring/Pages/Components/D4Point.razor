@@ -19,37 +19,43 @@
     @*Last updated*@
     Updated: @Updated <br />
 
-    
-
-
     @*Display on/off*@
     @if (true)
     {
-    @if (ShowImage)
-    {
-        <button class="btn-secondary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
-    }
-    else
-    {
-        <button class="btn-primary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
-    }
-    @if (ShowChart)
-    {
-        <button class="btn-secondary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+        @if (ShowImage)
+        {
+            <button class="btn-secondary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
+        }
+        else
+        {
+            <button class="btn-primary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
+        }
+        @if (ShowChart)
+        {
+            <button class="btn-secondary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
 
-    }
-    else
-    {
-        <button class="btn-primary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
-    }
-    @if (ShowLocation)
-    {
-        <button class="btn-secondary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
-    }
-    else
-    {
-        <button class="btn-primary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
-    }
+        }
+        else
+        {
+            <button class="btn-primary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+        }
+        @if (ShowStats)
+        {
+            <button class="btn-secondary" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
+
+        }
+        else
+        {
+            <button class="btn-primary" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
+        }
+        @if (ShowLocation)
+        {
+            <button class="btn-secondary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+        }
+        else
+        {
+            <button class="btn-primary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+        }
     }
 
     @*line*@
@@ -70,11 +76,12 @@
         <SignalChart SignalNodes="@(MyPoint?.Signals?.SignalNodes)"></SignalChart>   
     }
 
-   
-
+    @*Stats*@
+    @if (ShowStats)
+    {
+        <SignalStats></SignalStats>
+    }
     
-
-
     @if (ShowLocation)
     {
         @*line*@
@@ -105,6 +112,7 @@
 
     public bool ShowImage { get; set; } = false;
     public bool ShowChart { get; set; } = true;
+    public bool ShowStats { get; set; } = false;
     public bool ShowLocation { get; set; } = true;
 
 

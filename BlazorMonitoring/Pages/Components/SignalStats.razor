@@ -1,0 +1,20 @@
+﻿@using FM4017Library.Dtos
+
+<div style="background-color:#eef1ff; border-radius: 30px; margin: 20px 0 0 0; padding: 10px">
+    <h5>Stats for [unit]</h5>
+
+    Max: 
+    <br />
+
+    Min:
+    <br />
+
+    Avg
+    <br />
+
+</div>
+
+@code {
+    [Parameter]
+    public List<SignalNode>? SignalNodes { get; set; }
+}

@@ -10,7 +10,8 @@
     <ChartSeriesCollection>
         @foreach (var signalsList in UniqueSignalsLists)
         {
-            <ChartSeries DataSource="@signalsList" 
+            <ChartSeries
+                DataSource="@signalsList"
                 Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))" 
                 XName="TimeStamp" 
                 YName="Value" 
@@ -24,47 +25,22 @@
     [Parameter]
     public List<SignalNode>? SignalNodes { get; set; }
 
-    //public List<Signal>? Signals 
-    //{
-    //    get 
-    //    {
-    //        List<Signal> result = new List<Signal>();
-
-    //        if (SignalNodes is not null)
-    //        {
-    //            foreach (var signal in SignalNodes)
-    //            {
-    //                if (signal?.Timestamp is not null)
-    //                {
-    //                    result.Add(new Signal { 
-    //                        TimeStamp = signal.Timestamp!.Value, 
-    //                        Value = Convert.ToDouble(signal?.Data?.RawValue) });
-    //                }
-    //            }
-    //        }
-    //        return result; 
-    //    }
-    //}
-
-    // Split to list per unit
-
     public List<List<Signal>> UniqueSignalsLists
     {
         get
         {
             List<List<Signal>> result = new ();
 
-            // find # unique units
-            List<SignalNode>? uniqueUnitSignals = SignalNodes?.DistinctBy(t => t.Unit).ToList();
+            List<string?> uniqueUnits = SignalNodeHelpers.ListUniqueUnits(SignalNodes);
 
-            if (uniqueUnitSignals is not null)
+            if (uniqueUnits is not null)
             {
-                foreach (var uniqeUnit in uniqueUnitSignals)
+                foreach (var uniqeUnit in uniqueUnits)
                 {
                     // holds result per unit
                     List<Signal> unitResult = new();
 
-                    foreach (var signal in SignalNodes!.Where(t => t.Unit == uniqeUnit.Unit))
+                    foreach (var signal in SignalNodes!.Where(t => t.Unit == uniqeUnit))
                     {
                         if (signal?.Timestamp is not null)
                         {
@@ -82,7 +58,6 @@
             return result;
         }
     }
-
 
     public class Signal
     {

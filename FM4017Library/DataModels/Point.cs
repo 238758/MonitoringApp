@@ -16,23 +16,4 @@ public class Point
     public double? Longitude { get; set; }
     public string? ImageUrl { get; set; }
 
-    public Point()
-    {
-
-    }
-
-    public Point(PointNode pointNode)
-    {
-        Id = pointNode.Id;
-        SpaceId = pointNode.SpaceId;
-        Name = pointNode.Name;
-        CreatedAt = pointNode.CreatedAt;
-        UpdatedAt = pointNode.UpdatedAt;
-
-
-        Latitude = pointNode?.Metadata?.Latitude;
-        Longitude = pointNode?.Metadata?.Longitude;
-        ImageUrl = pointNode?.Metadata?.ImageUrl;
-
-    }
 }

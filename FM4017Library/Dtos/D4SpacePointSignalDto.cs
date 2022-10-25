@@ -174,7 +174,4 @@ public partial class SignalMetadata
 
     [JsonPropertyName("SNR")]
     public string? Snr { get; set; }
-
-    [JsonPropertyName("imageUrl")]
-    public Uri? ImageUrl { get; set; }
 }

@@ -13,7 +13,6 @@ public class DataAccess : INotifyPropertyChanged
 
     private System.Timers.Timer? _updateTimer;
     private List<SpaceNode>? _spaceNodes;
-    private List<Space> _spaces;
 
     public List<SpaceNode>? SpaceNodes
     {

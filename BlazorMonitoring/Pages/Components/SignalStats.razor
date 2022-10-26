@@ -6,7 +6,9 @@
 <div style="background-color:#eef1ff; border-radius: 30px; margin: 20px 0 0 0; padding: 10px">
 
     <div style="background-color:white; border-radius:30px; padding: 5px 10px 5px 10px">
-        <h5>Stats for @Prettify.Unit(signalNodes?.FirstOrDefault()?.Unit)</h5>
+        <h5>Stats for @Prettify.Unit(signalNodes?.FirstOrDefault()?.Unit) 
+                last @(TotalHours(signalNodes?.LastOrDefault()?.Timestamp, signalNodes?.FirstOrDefault()?.Timestamp)) hours
+            </h5>
 
         Max:@signalNodes?.Max(x => x?.Data?.NumericValue)
           
@@ -31,4 +33,13 @@
             return SignalNodeHelpers.SplitListToListsWithUniqueUnit(SignalNodes);
         }
     }
+
+    private string? TotalHours(DateTime? last, DateTime? first)
+    {
+
+        TimeSpan? ts = last - first;
+
+        return ts?.TotalHours.ToString("#"); 
+    }
+
 }

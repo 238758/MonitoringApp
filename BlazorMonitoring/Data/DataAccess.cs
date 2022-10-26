@@ -1,5 +1,4 @@
-﻿using FM4017Library.DataModels;
-using FM4017Library.DataServices;
+﻿using FM4017Library.DataServices;
 using FM4017Library.Dtos;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -26,14 +25,6 @@ public class DataAccess : INotifyPropertyChanged
             }
         }
     }
-
-
-
-
-
-
-
-
 
     // Dependency injection
     private readonly ID4DataService _d4DataService;

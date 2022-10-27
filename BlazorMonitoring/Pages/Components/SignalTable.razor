@@ -14,6 +14,10 @@
             <th>Updated At</th>
             <th>Signal Strength</th>
             <th>SNR</th>
+            <th>Battery Level</th>
+            <th>Channel</th>
+
+
         </tr>
     </thead>
     <tbody>
@@ -30,6 +34,8 @@
                     <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.UpdatedAt))</td>
                     <td>@signal.Metadata?.SignalStrength</td>
                     <td>@signal.Metadata?.Snr</td>
+                    <td>@signal.Metadata?.BatteryLevel</td>
+                    <td>@signal.Metadata?.Channel</td>
                 </tr>
             }
         }

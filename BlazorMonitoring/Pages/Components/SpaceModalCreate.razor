@@ -1,9 +1,14 @@
-﻿@using FM4017Library.Dtos
-<button type="button" class="btn btn-warning" @onclick="ShowPopup">
+﻿@using FM4017Library.DataServices
+@using FM4017Library.Dtos
+@inject ID4DataService d4DataService
+@inject DataAccess dataAccess
+
+
+<button type="button" class="btn btn-warning" @onclick="(() => ShowPopup = true)">
     Create Space here
 </button>
 
-@if (showPopup)
+@if (_showPopup)
 {
     <!-- Modal -->
     <div class="modal" tabindex="-1" style="display:block" aria-modal="true" role="dialog">
@@ -19,40 +24,40 @@
                         <h5 class="modal-title">Create Space with parent: @ParentSpace?.Name</h5>
                     }
                     
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => showPopup = false)"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => _showPopup = false)"></button>
                 </div>
                 @*<div class="modal-body">*@
 
 
-                <EditForm Model="model" OnValidSubmit="ExecuteCreate" class="card card-body bg-light">
+                <EditForm Model="_model" OnValidSubmit="ExecuteCreate" class="card card-body bg-light">
                     <DataAnnotationsValidator />
 
                     <div class="form-group row">
                         <label for="email" class="col-md-3 col-form-label">Name:</label>
                         <div class="col-md-9">
-                            <InputText id="Name" class="form-control" @bind-Value="model.Name" />
-                            <ValidationMessage For="@(() => model.Name)" />
+                            <InputText id="Name" class="form-control" @bind-Value="_model.Name" />
+                            <ValidationMessage For="@(() => _model.Name)" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="latitude" class="col-md-3 col-form-label">Latitude:</label>
                         <div class="col-md-9">
-                            <InputText id="Latitude" class="form-control" @bind-Value="model.Latitude" />
-                            <ValidationMessage For="@(() => model.Latitude)" />
+                            <InputText id="Latitude" class="form-control" @bind-Value="_model.Latitude" />
+                            <ValidationMessage For="@(() => _model.Latitude)" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="longitude" class="col-md-3 col-form-label">Longitude:</label>
                         <div class="col-md-9">
-                            <InputText id="Longitude" class="form-control" @bind-Value="model.Longitude" />
-                            <ValidationMessage For="@(() => model.Longitude)" />
+                            <InputText id="Longitude" class="form-control" @bind-Value="_model.Longitude" />
+                            <ValidationMessage For="@(() => _model.Longitude)" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="imageUrl" class="col-md-3 col-form-label">Image Url:</label>
                         <div class="col-md-9">
-                            <InputText id="IamgeUrl" class="form-control" @bind-Value="model.ImageUrl" />
-                            <ValidationMessage For="@(() => model.ImageUrl)" />
+                            <InputText id="IamgeUrl" class="form-control" @bind-Value="_model.ImageUrl" />
+                            <ValidationMessage For="@(() => _model.ImageUrl)" />
                         </div>
                     </div>
 
@@ -60,7 +65,7 @@
 
                     <div class="row">
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" @onclick="(() => showPopup = false)">Close</button>
+                            <button type="button" class="btn btn-secondary" @onclick="(() => _showPopup = false)">Close</button>
                             <button type="submit" class="btn btn-primary">Create Space</button>
                         </div>
                     </div>
@@ -80,19 +85,29 @@
     [Parameter]
     public SpaceNode? ParentSpace { get; set; }
 
-    CreateUpdateSpaceModel model = new();
 
-    bool showPopup = false;
-
-    private void ShowPopup()
+    public bool ShowPopup
     {
-
-        showPopup = true;
+        get
+        {
+            return _showPopup;
+        }
+        set
+        {
+            _showPopup = value;
+        }
     }
 
+    CreateUpdateSpaceModel _model = new();
+    bool _showPopup = false;
 
-    public void ExecuteCreate()
+
+    public async void ExecuteCreate()
     {
+        await d4DataService.CreateSpace(_model!.Name!);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+
+        ShowPopup = false;
 
     }
 

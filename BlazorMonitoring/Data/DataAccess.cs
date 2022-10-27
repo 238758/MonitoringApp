@@ -45,10 +45,9 @@ public class DataAccess : INotifyPropertyChanged
         GetAllSpacesPointsSignalsAsync();
     }
 
-    private async void GetAllSpacesPointsSignalsAsync()
+    public async void GetAllSpacesPointsSignalsAsync()
     {
         SpaceNodes = await _d4DataService.GetAllSpacesPointsSignals();
-
     }
 
     #region PropertyChanged

@@ -1,4 +1,9 @@
-﻿@using FM4017Library.Dtos
+﻿@using FM4017Library.DataServices
+@using FM4017Library.Dtos
+@inject ID4DataService d4DataService
+
+
+
 <button type="button" class="btn btn-danger" @onclick="(() => showPopup = !showPopup)">
     Delete
 </button>
@@ -16,7 +21,7 @@
                 
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @onclick="(() => showPopup = false)">Close</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-danger" @onclick=ExecuteDelete>Delete</button>
                 </div>
             </div>
         </div>
@@ -34,8 +39,12 @@
 
     bool showPopup = false;
 
-    public void ExecuteDelete()
+    public async void ExecuteDelete()
     {
+        await d4DataService.DeleteSpace(Space!.Id!);
 
+        
+
+        showPopup = false;
     }
 }

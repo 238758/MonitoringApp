@@ -177,4 +177,10 @@ public partial class SignalMetadata
 
     [JsonPropertyName("SNR")]
     public string? Snr { get; set; }
+
+    [JsonPropertyName("BatteryLevel")]
+    public string? BatteryLevel { get; set; }
+
+    [JsonPropertyName("Channel")]
+    public string? Channel { get; set; }
 }

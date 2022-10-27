@@ -1,5 +1,7 @@
 ﻿using FM4017Library.DataAccess.GraphQlQueries;
+using FM4017Library.DataModels;
 using FM4017Library.Dtos;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
@@ -13,6 +15,48 @@ public class GraphQLD4DataService : ID4DataService
     {
         _httpclient = httpclient;
     }
+
+    public async Task DeleteSpace(string spaceId)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.DeleteSpace(spaceId),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+    public async Task CreateSpace(string name)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.CreateSpace(name),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+
 
     public async Task<List<PointNode>?> GetAllPointsSignals()
     {

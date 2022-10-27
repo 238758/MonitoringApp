@@ -33,6 +33,7 @@
 
             List<string?> uniqueUnits = SignalNodeHelpers.ListUniqueUnits(SignalNodes);
 
+            // Create a list of signals with each unique unit
             if (uniqueUnits is not null)
             {
                 foreach (var uniqeUnit in uniqueUnits)
@@ -52,9 +53,58 @@
                         });
                         }
                     }
+
                     result.Add(unitResult);
                 }
+
             }
+
+            #region filter based on metadata- channel if not null 
+
+            // If channel is not null filter by channel (changed by dataloggin group 27.10.22)
+            if (SignalNodes?.LastOrDefault()?.Metadata?.Channel is not null)
+            {
+                result.Clear();
+
+                // Get list of signal with unique channel
+                var uniqueChannelSignalNodes = SignalNodes?.DistinctBy(signal => signal?.Metadata?.Channel).ToList();
+                List<string?> uniqueChannels = new();
+
+                if (uniqueChannelSignalNodes is not null)
+                {
+                    foreach (var uniqueChannelSignalNode in uniqueChannelSignalNodes)
+                    {
+                        if (uniqueChannelSignalNode?.Metadata?.Channel! is not null)
+                        {
+                            uniqueChannels.Add(uniqueChannelSignalNode?.Metadata?.Channel!);
+                        }
+                    }
+                }
+
+                foreach (var uniqueChannel in uniqueChannels)
+                {
+                    // holds result per unit
+                    List<Signal> channelResult = new();
+
+                    foreach (var signal in SignalNodes!.Where(t => t.Metadata.Channel == uniqueChannel))
+                    {
+                        if (signal?.Timestamp is not null)
+                        {
+                            channelResult.Add(new Signal
+                                {
+                                    TimeStamp = DateTimeHelpers.UtcTime2Local(signal.Timestamp.Value),
+                                    Value = Convert.ToDouble(signal?.Data?.RawValue),
+                                    Unit = signal?.Unit
+                                });
+                        }
+                    }
+
+                    result.Add(channelResult);
+                }
+            }
+            
+            #endregion
+
             return result;
         }
     }

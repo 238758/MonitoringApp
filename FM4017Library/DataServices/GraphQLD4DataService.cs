@@ -36,11 +36,11 @@ public class GraphQLD4DataService : ID4DataService
         }
     }
 
-    public async Task CreateSpace(string name)
+    public async Task CreateSpace(string name, string parentId)
     {
         var queryObject = new
         {
-            query = GraphQlQueries.CreateSpace(name),
+            query = GraphQlQueries.CreateSpace(name, parentId),
             variables = new { }
         };
 

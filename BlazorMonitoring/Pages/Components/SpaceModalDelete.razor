@@ -1,8 +1,7 @@
 ﻿@using FM4017Library.DataServices
 @using FM4017Library.Dtos
 @inject ID4DataService d4DataService
-
-
+@inject DataAccess dataAccess
 
 <button type="button" class="btn btn-danger" @onclick="(() => showPopup = !showPopup)">
     Delete
@@ -29,9 +28,6 @@
 }
 
 
-
-
-
 @code {
     // Input to component
     [Parameter]
@@ -41,10 +37,9 @@
 
     public async void ExecuteDelete()
     {
-        await d4DataService.DeleteSpace(Space!.Id!);
-
-        
-
         showPopup = false;
+
+        //await d4DataService.DeleteSpace(Space!.Id!);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
     }
 }

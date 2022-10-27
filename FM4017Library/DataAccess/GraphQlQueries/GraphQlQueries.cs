@@ -89,32 +89,42 @@ public static class GraphQlQueries
 
 	public static string CreateSpace(string name, string? parentId = null, double? longitude = null, double? latitude = null, string? imageUrl = null)
 	{
-		//string result =
-		//@"mutation {
-  //          space {
-  //              create(
-  //                  input: {
-  //              name: """ + name + @""" 
-  //              parentId: """ + parentId + @"""
-  //              metadata:
-  //                  {
-  //                  longitude:" + longitude + @"
-  //                  latitude: " + latitude + @"
-  //                  imageUrl: """ + imageUrl + @"""
-		//			}
-  //              }
-		//		) {
-  //                  id
-		//		}
-		//			}
-		//		}";
+        //string result =
+        //@"mutation {
+        //          space {
+        //              create(
+        //                  input: {
+        //              name: """ + name + @""" 
+        //              parentId: """ + parentId + @"""
+        //              metadata:
+        //                  {
+        //                  longitude:" + longitude + @"
+        //                  latitude: " + latitude + @"
+        //                  imageUrl: """ + imageUrl + @"""
+        //			}
+        //              }
+        //		) {
+        //                  id
+        //		}
+        //			}
+        //		}";
+
+        string parentIdLine = $"";
+        if (parentId is not null)
+		{
+			parentIdLine = $"parentId: \" {parentId} \" ";
+        }
+
+
+		
 
         string result =
         @"mutation {
             space {
                 create(
                     input: {
-                name: """ + name + @""" 
+                name: """ + name + @""" " 
+				+ parentIdLine + @"
                 }
 				) {
                     id

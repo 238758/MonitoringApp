@@ -8,5 +8,5 @@ public interface ID4DataService
     Task<List<PointNode>?> GetAllPointsSignals();
 
     Task DeleteSpace(string spaceId);
-    Task CreateSpace(string spaceId);
+    Task CreateSpace(string spaceId, string? parentId);
 }

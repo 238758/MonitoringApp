@@ -104,12 +104,9 @@
 
     public async void ExecuteCreate()
     {
-        await d4DataService.CreateSpace(_model!.Name!);
-        dataAccess.GetAllSpacesPointsSignalsAsync();
-
         ShowPopup = false;
 
+        //await d4DataService.CreateSpace(_model!.Name!, ParentSpace?.Id);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
     }
-
-
 }

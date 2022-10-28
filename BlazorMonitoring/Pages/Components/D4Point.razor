@@ -19,44 +19,44 @@
     @*Last updated*@
     Updated: @Updated <br />
 
-    @*Display on/off*@
-    @if (true)
-    {
+        @*Display on/off*@
+    <div class="controlRow">
         @if (ShowImage)
         {
-            <button class="btn-secondary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
+            <button class="btn btn-secondary" style="margin: 2px" @onclick="(() => ShowImage = !ShowImage)">Image</button>
         }
         else
         {
-            <button class="btn-primary" @onclick="(() => ShowImage = !ShowImage)">Image</button>
+            <button class="btn btn-primary" style="margin: 2px" @onclick="(() => ShowImage = !ShowImage)">Image</button>
         }
         @if (ShowChart)
         {
-            <button class="btn-secondary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+            <button class="btn btn-secondary" style="margin: 2px" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
 
         }
         else
         {
-            <button class="btn-primary" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
+            <button class="btn btn-primary" style="margin: 2px" @onclick="(() => ShowChart = !ShowChart)">Chart</button>
         }
         @if (ShowStats)
         {
-            <button class="btn-secondary" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
+            <button class="btn btn-secondary" style="margin: 2px" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
 
         }
         else
         {
-            <button class="btn-primary" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
+            <button class="btn btn-primary" style="margin: 2px" @onclick="(() => ShowStats = !ShowStats)">Stats</button>
         }
         @if (ShowLocation)
         {
-            <button class="btn-secondary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+            <button class="btn btn-secondary" style="margin: 2px" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
         }
         else
         {
-            <button class="btn-primary" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
+            <button class="btn btn-primary" style="margin: 2px" @onclick="(() => ShowLocation = !ShowLocation)">Location</button>
         }
-    }
+    </div>
+    
 
     @*line*@
     @if (ShowImage || ShowChart)

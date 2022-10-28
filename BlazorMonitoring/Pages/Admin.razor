@@ -1,11 +1,16 @@
-﻿@page "/DetailedView"
+﻿@page "/Admin"
 @using BlazorMonitoring.Pages.Components
 @using System.ComponentModel
 @using FM4017Library.Dtos
 @inject IConfiguration config
 @inject DataAccess dataAccess
 
-<h3>Dimension Four tenant: @config["dimensionfour:header1value"]</h3>
+<h3>Admin Page</h3>
+<div>
+    Connected to Dimension Four tenant: @config["dimensionfour:header1value"]
+</div>
+    <br />
+
 
 @if (dataAccess?.SpaceNodes is null)
 {

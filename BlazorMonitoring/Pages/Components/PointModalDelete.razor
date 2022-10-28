@@ -1,0 +1,45 @@
+﻿@using FM4017Library.DataServices
+@using FM4017Library.Dtos
+@inject ID4DataService d4DataService
+@inject DataAccess dataAccess
+
+<button type="button" class="btn btn-danger" @onclick="(() => showPopup = !showPopup)">
+    Delete
+</button>
+
+@if (showPopup)
+{
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure you want to delete: @Point?.Name ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => showPopup = false)"></button>
+                </div>
+                
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="(() => showPopup = false)">Close</button>
+                    <button type="button" class="btn btn-danger" @onclick=ExecuteDelete>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    // Input to component
+    [Parameter]
+    public PointNode? Point { get; set; }
+
+    bool showPopup = false;
+
+    public async void ExecuteDelete()
+    {
+        showPopup = false;
+
+        //await d4DataService.DeleteSpace(Space!.Id!);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+    }
+}

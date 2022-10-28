@@ -75,18 +75,18 @@ public static class SignalNodeHelpers
         {
             // Get list of signal with unique channel
             var uniqueChannelSignalNodes = signalNodes?.DistinctBy(signal => signal?.Metadata?.Channel).ToList();
-            List<string?> uniqueChannels = new();
+            List<string?> uniqueChannels = new() { "1" };
 
-            if (uniqueChannelSignalNodes is not null)
-            {
-                foreach (var uniqueChannelSignalNode in uniqueChannelSignalNodes)
-                {
-                    if (uniqueChannelSignalNode?.Metadata?.Channel! is not null)
-                    {
-                        uniqueChannels.Add(uniqueChannelSignalNode?.Metadata?.Channel!);
-                    }
-                }
-            }
+            //if (uniqueChannelSignalNodes is not null)
+            //{
+            //    foreach (var uniqueChannelSignalNode in uniqueChannelSignalNodes)
+            //    {
+            //        if (uniqueChannelSignalNode?.Metadata?.Channel! is not null)
+            //        {
+            //            uniqueChannels.Add(uniqueChannelSignalNode?.Metadata?.Channel!);
+            //        }
+            //    }
+            //}
 
             foreach (var uniqueChannel in uniqueChannels)
             {

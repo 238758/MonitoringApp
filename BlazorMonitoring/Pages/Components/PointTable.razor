@@ -1,8 +1,10 @@
 ﻿@using FM4017Library.Dtos
 @using FM4017Library.Helpers
 
-<h5>Points in selected Space </h5>
+<div class="alert" style="background-color:white; text-align:center; border-radius: 30px">
+
 Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
+<h5>Points in selected Space </h5>
 
 <table class="table table-striped table-light table-hover">
     <thead class="table-dark">
@@ -19,6 +21,8 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
             <th>Longitude</th>
             <th>Signals</th>
             <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -26,22 +30,24 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
         {
             @foreach (var point in Points)
             {
-                <tr @onclick="() => ChangeSelectedPoint(point!)">
-                    <td>@point.Name</td>
-                    <td>@point.Id</td>
-                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.CreatedAt))</td>
-                    <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.UpdatedAt))</td>
-                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
-                    <td>@Prettify.Unit(point?.Signals?.SignalNodes?.LastOrDefault()?.Unit) </td>
-                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
-                    <td>@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
-                    <td>@point?.Metadata?.Latitude?.ToString("0.###")</td>
-                    <td>@point?.Metadata?.Longitude?.ToString("0.###")</td>
-                    <td>@point?.Signals?.SignalNodes?.Count</td>
+                <tr >
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point.Name</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point.Id</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.CreatedAt))</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.UpdatedAt))</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@Prettify.Unit(point?.Signals?.SignalNodes?.LastOrDefault()?.Unit) </td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Latitude?.ToString("0.###")</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Longitude?.ToString("0.###")</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.Count</td>
                     @if (! string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))
                     {
                         <td><a target="_blank" href="@point?.Metadata?.ImageUrl?">Show</a></td>
                     }
+                    <td><PointModalEdit Point="point" /></td>
+                    <td><PointModalDelete Point="point" /></td>
                 </tr>
             }
         }
@@ -50,10 +56,12 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
 
 <br />
 <br />
-<SignalTable 
-    
+</div>
+<SignalTable
     Signals="Points?.Find(s => s.Id == SelectedPoint?.Id)?.Signals?.SignalNodes" 
     @bind-SelectedSignal="BoundValue" />
+
+    
 
 @code {
     [Parameter]

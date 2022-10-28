@@ -1,6 +1,4 @@
-﻿using FM4017Library.DataModels;
-
-namespace FM4017Library.DataAccess.GraphQlQueries;
+﻿namespace FM4017Library.DataAccess;
 
 public static class GraphQlQueries
 {

@@ -1,7 +1,7 @@
-﻿@using FM4017Library.DataServices
+﻿@using FM4017Library.DataAccess
 @using FM4017Library.Dtos
-@inject ID4DataService d4DataService
-@inject DataAccess dataAccess
+@inject IDataAccess d4DataService
+@inject DataAccessService dataAccess
 
 <button type="button" class="btn btn-danger" @onclick="(() => showPopup = !showPopup)">
     Delete

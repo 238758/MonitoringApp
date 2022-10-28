@@ -1,4 +1,4 @@
-﻿using FM4017Library.DataServices;
+﻿using FM4017Library.DataAccess;
 using FM4017Library.Dtos;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,7 +6,7 @@ using System.Timers;
 
 namespace BlazorMonitoring.Data;
 
-public class DataAccess : INotifyPropertyChanged
+public class DataAccessService : INotifyPropertyChanged
 {
     private int _pollRateMinutes = 1;
 
@@ -27,9 +27,9 @@ public class DataAccess : INotifyPropertyChanged
     }
 
     // Dependency injection
-    private readonly ID4DataService _d4DataService;
+    private readonly IDataAccess _d4DataService;
 
-    public DataAccess(ID4DataService d4DataService)
+    public DataAccessService(IDataAccess d4DataService)
     {
         _d4DataService = d4DataService;
 

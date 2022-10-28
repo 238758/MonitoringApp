@@ -1,17 +1,14 @@
-﻿using FM4017Library.DataAccess.GraphQlQueries;
-using FM4017Library.DataModels;
-using FM4017Library.Dtos;
-using System.Diagnostics;
+﻿using FM4017Library.Dtos;
 using System.Text;
 using System.Text.Json;
 
-namespace FM4017Library.DataServices;
+namespace FM4017Library.DataAccess;
 
-public class GraphQLD4DataService : ID4DataService
+public class GraphQLD4DataAccess : IDataAccess
 {
     private readonly HttpClient _httpclient;
 
-    public GraphQLD4DataService(HttpClient httpclient)
+    public GraphQLD4DataAccess(HttpClient httpclient)
     {
         _httpclient = httpclient;
     }
@@ -136,7 +133,6 @@ public class GraphQLD4DataService : ID4DataService
         }
     }
 
-
     public async Task<List<PointNode>?> GetAllPointsSignals()
     {
         var queryObject = new
@@ -190,6 +186,4 @@ public class GraphQLD4DataService : ID4DataService
         }
         return null;
     }
-
-    
 }

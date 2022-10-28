@@ -1,5 +1,5 @@
 using BlazorMonitoring.Data;
-using FM4017Library.DataServices;
+using FM4017Library.DataAccess;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,7 @@ Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configura
 
 // Using httpclient factory to register a dataservice requesting an interface
 // Making the service available for dependency injection (DI), giving loose coupling to the concrete implementation
-builder.Services.AddHttpClient<ID4DataService, GraphQLD4DataService>
+builder.Services.AddHttpClient<IDataAccess, GraphQLD4DataAccess>
             (dimensionFourDataService =>
             {
                 dimensionFourDataService.BaseAddress = new Uri(builder.Configuration["DimensionFour:ApiUrl"]);
@@ -23,7 +23,7 @@ builder.Services.AddHttpClient<ID4DataService, GraphQLD4DataService>
             });
 
 // Service to get Data, shared by all pages/ components
-builder.Services.AddScoped<DataAccess>();
+builder.Services.AddScoped<DataAccessService>();
 
 builder.Services.AddScoped<UserLogin>();
 

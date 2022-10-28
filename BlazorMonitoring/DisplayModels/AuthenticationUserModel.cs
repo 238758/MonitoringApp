@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlazorMonitoring.Models;
+namespace BlazorMonitoring.DisplayModels;
 
 public class AuthenticationUserModel
 {

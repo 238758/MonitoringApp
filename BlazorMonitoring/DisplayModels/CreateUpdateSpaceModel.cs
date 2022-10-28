@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlazorMonitoring.Models
+namespace BlazorMonitoring.DisplayModels
 {
     public class CreateUpdateSpaceModel
     {
@@ -15,7 +15,5 @@ namespace BlazorMonitoring.Models
 
         //[Required(ErrorMessage = "Image Url is required.")]
         public string? ImageUrl { get; set; }
-
-
     }
 }

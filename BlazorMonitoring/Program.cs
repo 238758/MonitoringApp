@@ -1,5 +1,6 @@
 using BlazorMonitoring.Data;
 using FM4017Library.DataServices;
+using Microsoft.Extensions.DependencyInjection;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,9 @@ builder.Services.AddHttpClient<ID4DataService, GraphQLD4DataService>
 
 // Service to get Data, shared by all pages/ components
 builder.Services.AddScoped<DataAccess>();
+
+builder.Services.AddScoped<UserLogin>();
+
 
 
 var app = builder.Build();

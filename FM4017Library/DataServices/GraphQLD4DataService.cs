@@ -36,11 +36,11 @@ public class GraphQLD4DataService : ID4DataService
         }
     }
 
-    public async Task CreateSpace(string name, string parentId)
+    public async Task DeletePoint(string pointId)
     {
         var queryObject = new
         {
-            query = GraphQlQueries.CreateSpace(name, parentId),
+            query = GraphQlQueries.DeletePoint(pointId),
             variables = new { }
         };
 
@@ -56,6 +56,85 @@ public class GraphQLD4DataService : ID4DataService
         }
     }
 
+    public async Task CreateSpace(string name, string? parentId, double? latitude, double? longitude, string? imageUrl)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.CreateSpace(name, parentId, latitude, longitude, imageUrl),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+    public async Task CreatePoint(string name, string? spaceId, double? latitude, double? longitude, string? imageUrl)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.CreatePoint(name, spaceId, latitude, longitude, imageUrl),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+    public async Task EditSpace(string name, string id, double? latitude, double? longitude, string? imageUrl)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.EditSpace(name, id, latitude, longitude, imageUrl),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+    public async Task EditPoint(string name, string id, double? latitude, double? longitude, string? imageUrl)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.EditPoint(name, id, latitude, longitude, imageUrl),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
 
 
     public async Task<List<PointNode>?> GetAllPointsSignals()

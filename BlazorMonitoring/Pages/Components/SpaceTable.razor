@@ -5,7 +5,7 @@
     
 
 <div class="controlRow">
-    <button class="btn btn-primary" @onclick=Home>Home</button>
+        <button class="btn btn-primary" @onclick=Home>Home</button> &nbsp;
     <button class="btn btn-primary" @onclick=Up>Up</button>
     <br />
     <br />
@@ -58,8 +58,12 @@ Selected Space: @_selectedSpace?.Name @*(id: @_selectedSpace?.Id)*@
         }
     </tbody>
 </table>
-    <SpaceModalCreate ParentSpace="_selectedSpace" />
-    <PointModalCreate ParentSpace="_selectedSpace" />
+    <SpaceModalCreate ParentSpace="_selectedSpace"/>
+    &nbsp;
+    @if (_selectedSpace is not null)
+    {
+        <PointModalCreate ParentSpace="_selectedSpace" />
+    }
 
 <br />
 <br />

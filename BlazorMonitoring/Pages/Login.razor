@@ -1,47 +1,74 @@
-﻿@page "/login"
+﻿@page "/Admin"
+@inject UserLogin userLogin
+@inject IConfiguration config
 
-<h3>Admin Log In</h3>
-
-@if (_showAuthenticationError)
+@if (userLogin.LoggedInUserName is null)
 {
-    <div class="alert alert-danger" role="alert">
-        <p>@_authenticationErrorText</p>
+    <div>
+
+    <h3>Admin Log In</h3>
+
+    @if (_showAuthenticationError)
+    {
+        <div class="alert alert-danger" role="alert">
+            <p>@_authenticationErrorText</p>
+        </div>
+    }
+
+    <EditForm Model="model" OnValidSubmit="ExecuteLogin" class="card card-body bg-light mt-5" style="border-radius: 30px; padding: 30px 20px">
+        <DataAnnotationsValidator />
+        @*<ValidationSummary />*@
+
+        <div class="form-group row">
+            <label for="email" class="col-md-auto col-form-label">Email:</label> 
+            <div class="col-md-12">
+                <InputText id="email" class="form-control" @bind-Value="model.Email" />
+                <ValidationMessage For="@(() => model.Email)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="password" class="col-md-auto col-form-label">Password:</label>
+            <div class="col-md-12">
+                <InputText type="password" id="password" class="form-control" @bind-Value="model.Password" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" style="margin: 10px 0 0 0" class="btn btn-primary">Log In</button>
+            </div>
+        </div>
+
+    </EditForm>
+    @if (ShowInvalidUser)
+    {
+        <br />
+        <div class="text-danger">Ivalid user</div>
+    }
+</div>
+}
+
+
+
+
+
+
+@if (userLogin.LoggedInUserName is not null)
+{
+    <div>
+        <h3>Admin Page</h3>
+        Connected to Dimension Four tenant: @config["dimensionfour:header1value"]
+        <br>
+        Logged on as: @userLogin.LoggedInUserName
+        <br>
+        <button style="margin: 10px 0 0 0" class="btn btn-primary" @onclick="ExecuteLogout">Log Out</button>
+         
+        <Admin></Admin>
     </div>
 }
 
-<EditForm Model="model" OnValidSubmit="ExecuteLogin" class="card card-body bg-light mt-5" style="border-radius: 30px; padding: 30px 20px">
-    <DataAnnotationsValidator />
-    @*<ValidationSummary />*@
-
-    <div class="form-group row">
-        <label for="email" class="col-md-auto col-form-label">Email:</label> 
-        <div class="col-md-12">
-            <InputText id="email" class="form-control" @bind-Value="model.Email" />
-            <ValidationMessage For="@(() => model.Email)" />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="password" class="col-md-auto col-form-label">Password:</label>
-        <div class="col-md-12">
-            <InputText type="password" id="password" class="form-control" @bind-Value="model.Password" />
-            <ValidationMessage For="@(() => model.Password)" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button type="submit" style="margin: 10px 0 0 0" class="btn btn-primary">Log In</button>
-        </div>
-    </div>
-
-</EditForm>
-
-@if (ShowInvalidUser)
-{
-    <br />
-    <p>Invalid user</p>
-}
 
 @code {
     private AuthenticationUserModel model = new();
@@ -53,16 +80,24 @@
 
 
 
-
-    private async Task ExecuteLogin()
+    private void ExecuteLogin()
     {
         _showAuthenticationError = false;
 
-        if (model.Email != "231216@usn.no")
+        if (model.Email == userLogin.ValidUser.email && model.Password == userLogin.ValidUser.pw)
+        {
+            ShowInvalidUser = false;
+            userLogin.LoggedInUserName = model.Email;
+        }
+        else
         {
             ShowInvalidUser = true;
-        }
-        
-        
+        } 
+    }
+
+    private void ExecuteLogout()
+    {
+        model.Password = null;
+        userLogin.LoggedInUserName = null;
     }
 }

@@ -39,7 +39,10 @@
     {
         showPopup = false;
 
-        //await d4DataService.DeleteSpace(Space!.Id!);
+        await d4DataService.DeleteSpace(Space!.Id!);
+        
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+        Thread.Sleep(900);
         dataAccess.GetAllSpacesPointsSignalsAsync();
     }
 }

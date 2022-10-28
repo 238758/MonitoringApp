@@ -1,4 +1,8 @@
-﻿@using FM4017Library.Dtos
+﻿@using FM4017Library.DataServices
+@using FM4017Library.Dtos
+@inject ID4DataService d4DataService
+@inject DataAccess dataAccess
+
 <button type="button" class="btn btn-warning" @onclick="ShowPopup">
     Edit
 </button>
@@ -16,35 +20,35 @@
                 @*<div class="modal-body">*@
 
 
-                    <EditForm Model="model" OnValidSubmit="ExecuteChange" class="card card-body bg-light">
+                    <EditForm Model="_model" OnValidSubmit="ExecuteChange" class="card card-body bg-light">
                         <DataAnnotationsValidator />
 
                         <div class="form-group row">
                             <label for="email" class="col-md-3 col-form-label">Name:</label>
                             <div class="col-md-9">
-                                <InputText id="Name" class="form-control" @bind-Value="model.Name" />
-                                <ValidationMessage For="@(() => model.Name)" />
+                                <InputText id="Name" class="form-control" @bind-Value="_model.Name" />
+                                <ValidationMessage For="@(() => _model.Name)" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="latitude" class="col-md-3 col-form-label">Latitude:</label>
                             <div class="col-md-9">
-                            <InputText id="Latitude" class="form-control" @bind-Value="model.Latitude" />
-                                <ValidationMessage For="@(() => model.Latitude)" />
+                            <InputText id="Latitude" class="form-control" @bind-Value="_model.Latitude" />
+                                <ValidationMessage For="@(() => _model.Latitude)" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="longitude" class="col-md-3 col-form-label">Longitude:</label>
                             <div class="col-md-9">
-                                <InputText id="Longitude" class="form-control" @bind-Value="model.Longitude" />
-                                <ValidationMessage For="@(() => model.Longitude)" />
+                                <InputText id="Longitude" class="form-control" @bind-Value="_model.Longitude" />
+                                <ValidationMessage For="@(() => _model.Longitude)" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="imageUrl" class="col-md-3 col-form-label">Image Url:</label>
                             <div class="col-md-9">
-                                <InputText id="IamgeUrl" class="form-control" @bind-Value="model.ImageUrl" />
-                                <ValidationMessage For="@(() => model.ImageUrl)" />
+                                <InputText id="IamgeUrl" class="form-control" @bind-Value="_model.ImageUrl" />
+                                <ValidationMessage For="@(() => _model.ImageUrl)" />
                             </div>
                         </div>
                         
@@ -72,24 +76,32 @@
     [Parameter]
     public PointNode? Point { get; set; }
 
-    CreateUpdateSpaceModel model = new();
+    CreateUpdateSpaceModel _model = new();
 
     bool showPopup = false;
 
     private void ShowPopup()
     {
-        model.Name = Point?.Name;
-        model.Latitude = Point?.Metadata?.Latitude.ToString();
-        model.Longitude = Point?.Metadata?.Longitude.ToString();
-        model.ImageUrl = Point?.Metadata?.ImageUrl;
+        _model.Name = Point?.Name;
+        _model.Latitude = Point?.Metadata?.Latitude.ToString();
+        _model.Longitude = Point?.Metadata?.Longitude.ToString();
+        _model.ImageUrl = Point?.Metadata?.ImageUrl;
 
         showPopup = true;
     }
 
 
-    private void ExecuteChange()
+    private async Task ExecuteChange()
     {
+        showPopup = false;
 
+        double latitude, longitude;
+        double.TryParse(_model.Latitude, out latitude);
+        double.TryParse(_model.Longitude, out longitude);
+
+        await d4DataService.EditPoint(_model!.Name!, Point!.Id!, longitude, latitude, _model.ImageUrl);
+        Thread.Sleep(900);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
     }
 
     

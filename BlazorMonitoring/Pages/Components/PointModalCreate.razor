@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @onclick="(() => _showPopup = false)">Close</button>
-                            <button type="submit" class="btn btn-primary">Create Space</button>
+                            <button type="submit" class="btn btn-primary">Create Point</button>
                         </div>
                     </div>
 
@@ -106,7 +106,15 @@
     {
         ShowPopup = false;
 
-        //await d4DataService.CreateSpace(_model!.Name!, ParentSpace?.Id);
+        double latitude, longitude;
+        double.TryParse(_model.Latitude, out latitude);
+        double.TryParse(_model.Longitude, out longitude);
+
+        await d4DataService.CreatePoint(_model!.Name!, ParentSpace?.Id, latitude, longitude, _model.ImageUrl);
+
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+        // Give D4 some time to update
+        Thread.Sleep(900);
         dataAccess.GetAllSpacesPointsSignalsAsync();
     }
 }

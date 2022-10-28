@@ -42,10 +42,12 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Latitude?.ToString("0.###")</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Longitude?.ToString("0.###")</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.Count</td>
+                    <td>
                     @if (! string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))
                     {
-                        <td><a target="_blank" href="@point?.Metadata?.ImageUrl?">Show</a></td>
+                        <a target="_blank" href="@point?.Metadata?.ImageUrl?">Show</a>
                     }
+                    </td>
                     <td><PointModalEdit Point="point" /></td>
                     <td><PointModalDelete Point="point" /></td>
                 </tr>

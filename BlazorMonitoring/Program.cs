@@ -1,6 +1,5 @@
 using BlazorMonitoring.Data;
 using FM4017Library.DataServices;
-using Microsoft.Extensions.DependencyInjection;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -25,15 +25,37 @@
     [Parameter]
     public List<SignalNode>? SignalNodes { get; set; }
 
-    public List<List<Signal>> UniqueSignalsLists
+    // Split the Signal
+    private List<List<Signal>> UniqueSignalsLists
     {
         get
         {
             List<List<Signal>> result = new ();
 
-            List<string?> uniqueUnits = SignalNodeHelpers.ListUniqueUnits(SignalNodes);
+            // If channel is not null filter out channel 1 (changed by dataloggin group 27.10.22)
+            if (SignalNodes?.LastOrDefault()?.Metadata?.Channel is not null)
+            {
+                List<Signal> channelResult = new();
+
+                foreach (var signal in SignalNodes!.Where(t => t.Metadata.Channel == "1"))
+                {
+                    if (signal?.Timestamp is not null)
+                    {
+                        channelResult.Add(new Signal
+                            {
+                                TimeStamp = DateTimeHelpers.UtcTime2Local(signal.Timestamp.Value),
+                                Value = Convert.ToDouble(signal?.Data?.RawValue),
+                                Unit = signal?.Unit
+                            });
+                    }
+                }
+                result.Add(channelResult);
+                return result;
+            }
 
             // Create a list of signals with each unique unit
+            List<string?> uniqueUnits = SignalNodeHelpers.ListUniqueUnits(SignalNodes);
+
             if (uniqueUnits is not null)
             {
                 foreach (var uniqeUnit in uniqueUnits)
@@ -59,59 +81,12 @@
 
             }
 
-            #region filter based on metadata- channel if not null 
-
-            // If channel is not null filter by channel (changed by dataloggin group 27.10.22)
-            if (SignalNodes?.LastOrDefault()?.Metadata?.Channel is not null)
-            {
-                result.Clear();
-
-                // Get list of signal with unique channel
-                var uniqueChannelSignalNodes = SignalNodes?.DistinctBy(signal => signal?.Metadata?.Channel).ToList();
-                // Only display channel 1
-                List<string?> uniqueChannels = new() {"1"};
-
-                // display all channels
-                //if (uniqueChannelSignalNodes is not null)
-                //{
-                //    foreach (var uniqueChannelSignalNode in uniqueChannelSignalNodes)
-                //    {
-                //        if (uniqueChannelSignalNode?.Metadata?.Channel! is not null)
-                //        {
-                //            uniqueChannels.Add(uniqueChannelSignalNode?.Metadata?.Channel!);
-                //        }
-                //    }
-                //}
-
-                foreach (var uniqueChannel in uniqueChannels)
-                {
-                    // holds result per unit
-                    List<Signal> channelResult = new();
-
-                    foreach (var signal in SignalNodes!.Where(t => t.Metadata.Channel == uniqueChannel))
-                    {
-                        if (signal?.Timestamp is not null)
-                        {
-                            channelResult.Add(new Signal
-                                {
-                                    TimeStamp = DateTimeHelpers.UtcTime2Local(signal.Timestamp.Value),
-                                    Value = Convert.ToDouble(signal?.Data?.RawValue),
-                                    Unit = signal?.Unit
-                                });
-                        }
-                    }
-
-                    result.Add(channelResult);
-                }
-            }
-            
-            #endregion
-
             return result;
         }
     }
 
-    public class Signal
+    // helper class used to pass data to the chart
+    private class Signal
     {
         public DateTime? TimeStamp { get; set; }
         public double Value { get; set; }

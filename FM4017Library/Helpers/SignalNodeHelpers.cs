@@ -1,5 +1,6 @@
 ﻿using FM4017Library.DataModels;
 using FM4017Library.Dtos;
+using System.Collections.Generic;
 
 namespace FM4017Library.Helpers;
 
@@ -61,51 +62,22 @@ public static class SignalNodeHelpers
     }
 
     /// <summary>
-    /// split a list of signalNodes to a list of list where each list of signalNodes are sorted by channel or if metadata.channel is null by unique unit
+    /// Return channel 1 signal nodes if channel not null
+    /// else split a list of signalNodes to a list of list where each list have a unique unit
     /// </summary>
     /// <param name="signalNodes"></param>
     /// <returns></returns>
     public static List<List<SignalNode>> SplitListToListsWithUniqueChannelOrUniqueUnit(List<SignalNode>? signalNodes)
     {
         List<List<SignalNode>> result = new();
-
-
-
+        
+        // Return channel 1 signal nodes if channel not null
         if (signalNodes?.LastOrDefault()?.Metadata?.Channel is not null)
         {
-            // Get list of signal with unique channel
-            var uniqueChannelSignalNodes = signalNodes?.DistinctBy(signal => signal?.Metadata?.Channel).ToList();
-            List<string?> uniqueChannels = new() { "1" };
-
-            //if (uniqueChannelSignalNodes is not null)
-            //{
-            //    foreach (var uniqueChannelSignalNode in uniqueChannelSignalNodes)
-            //    {
-            //        if (uniqueChannelSignalNode?.Metadata?.Channel! is not null)
-            //        {
-            //            uniqueChannels.Add(uniqueChannelSignalNode?.Metadata?.Channel!);
-            //        }
-            //    }
-            //}
-
-            foreach (var uniqueChannel in uniqueChannels)
-            {
-                // holds result per unit
-                List<SignalNode> channelResult = new();
-
-                foreach (var signal in signalNodes!.Where(t => t.Metadata.Channel == uniqueChannel))
-                {
-                    if (signal?.Timestamp is not null)
-                    {
-                        channelResult.Add(signal);
-                    }
-                }
-
-                result.Add(channelResult);
-            }
+            List<SignalNode>? channel1List = signalNodes?.Where(signal => signal?.Metadata?.Channel == "1").ToList();
+            result.Add(channel1List!);
             return result;
         }
-
 
 
         List<string?> uniqueUnits = ListUniqueUnits(signalNodes);

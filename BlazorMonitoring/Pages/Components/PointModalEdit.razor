@@ -76,7 +76,7 @@
     [Parameter]
     public PointNode? Point { get; set; }
 
-    CreateUpdateSpaceModel _model = new();
+    CreateUpdateSpacePointModel _model = new();
 
     bool showPopup = false;
 
@@ -100,6 +100,8 @@
         double.TryParse(_model.Longitude, out longitude);
 
         await d4DataService.EditPoint(_model!.Name!, Point!.Id!, longitude, latitude, _model.ImageUrl);
+        
+        dataAccess.GetAllSpacesPointsSignalsAsync();
         Thread.Sleep(900);
         dataAccess.GetAllSpacesPointsSignalsAsync();
     }

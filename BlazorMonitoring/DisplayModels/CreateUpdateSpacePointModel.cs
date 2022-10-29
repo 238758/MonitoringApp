@@ -2,7 +2,7 @@
 
 namespace BlazorMonitoring.DisplayModels
 {
-    public class CreateUpdateSpaceModel
+    public class CreateUpdateSpacePointModel
     {
         [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }

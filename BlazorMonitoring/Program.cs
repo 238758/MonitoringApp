@@ -22,8 +22,8 @@ builder.Services.AddHttpClient<IDataAccess, GraphQLD4DataAccess>
                 dimensionFourDataService.DefaultRequestHeaders.Add(builder.Configuration["DimensionFour:Header2Name"], builder.Configuration["DimensionFour:Header2Value"]);
             });
 
-// Service to get Data, shared by all pages/ components
-builder.Services.AddScoped<DataAccessService>();
+// Service to get Data, shared by all (users/pages/ components)
+builder.Services.AddSingleton<DataAccessService>();
 
 builder.Services.AddScoped<UserLogin>();
 

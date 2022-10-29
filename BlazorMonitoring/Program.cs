@@ -27,6 +27,7 @@ builder.Services.AddSingleton<DataAccessService>();
 
 builder.Services.AddScoped<UserLogin>();
 
+builder.Services.AddSingleton<DataSimulatorService>();
 
 
 var app = builder.Build();

@@ -54,7 +54,7 @@
             }
 
             // Create a list of signals with each unique unit
-            List<string?> uniqueUnits = SignalNodeHelpers.ListUniqueUnits(SignalNodes);
+            List<string?> uniqueUnits = SignalNodeHelpers.ListAndOrderUniqueUnits(SignalNodes);
 
             if (uniqueUnits is not null)
             {

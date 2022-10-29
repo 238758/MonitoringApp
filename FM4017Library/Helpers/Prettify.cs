@@ -12,6 +12,10 @@ public static class Prettify
         {
             return "% RH";
         }
+        else if (unit == "KILOGRAMS")
+        {
+            return "kg";
+        }
 
         return unit;
     }

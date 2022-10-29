@@ -58,8 +58,12 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
 
  @if (SelectedPoint is not null)
 {
-    <SignalModalCreate ParentPoint="SelectedPoint"></SignalModalCreate>
-        
+    <SignalModalCreate ParentPoint="SelectedPoint"></SignalModalCreate>  
+}
+    &nbsp;
+@if (SelectedPoint is not null)
+{
+    <SignalModalSimulator ParentPoint="SelectedPoint"></SignalModalSimulator>
 }
 
 <br />

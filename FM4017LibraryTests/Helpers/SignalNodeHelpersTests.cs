@@ -21,7 +21,7 @@ public class SignalNodeHelpersTests
             new SignalNode() { Unit = null},
         };
 
-        var actual = SignalNodeHelpers.ListUniqueUnits(signalNodes);
+        var actual = SignalNodeHelpers.ListAndOrderUniqueUnits(signalNodes);
         
         var expected = new List<SignalNode>()
         {

@@ -8,7 +8,7 @@ namespace BlazorMonitoring.Data;
 
 public class DataAccessService : INotifyPropertyChanged
 {
-    private int _pollRateMinutes = 1;
+    private int _pollRateMinutes = 3;
 
     private System.Timers.Timer? _updateTimer;
     private List<SpaceNode>? _spaceNodes;
@@ -47,10 +47,6 @@ public class DataAccessService : INotifyPropertyChanged
 
     public async void GetAllSpacesPointsSignalsAsync()
     {
-        // for each exisitng point with signal check for new signals and add in list
-
-        // for new point and space add last 100
-
         SpaceNodes = await _d4DataService.GetAllSpacesPointsSignals();
     }
 

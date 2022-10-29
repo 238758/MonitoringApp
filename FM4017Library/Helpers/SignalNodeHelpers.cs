@@ -5,14 +5,14 @@ namespace FM4017Library.Helpers;
 public static class SignalNodeHelpers
 {
     /// <summary>
-    /// List unique units from list of signalNodes
+    /// List and order unique units from list of signalNodes
     /// </summary>
     /// <param name="signalNodes"></param>
     /// <returns></returns>
-    public static List<string?> ListUniqueUnits(List<SignalNode>? signalNodes)
+    public static List<string?> ListAndOrderUniqueUnits(List<SignalNode>? signalNodes)
     {
         // Get list of signal with unique units
-        var uniqueUnitSignalNodes = signalNodes?.DistinctBy(signal => signal.Unit).ToList();
+        var uniqueUnitSignalNodes = signalNodes?.DistinctBy(signal => signal.Unit).ToList().OrderBy(x => x.Unit);
 
         List<string?> uniqueUnits = new ();
 
@@ -36,7 +36,7 @@ public static class SignalNodeHelpers
     {
         List<List<SignalNode>> result = new();
 
-        List<string?> uniqueUnits = ListUniqueUnits(signalNodes);
+        List<string?> uniqueUnits = ListAndOrderUniqueUnits(signalNodes);
 
         if (uniqueUnits is not null)
         {
@@ -78,7 +78,7 @@ public static class SignalNodeHelpers
         }
 
 
-        List<string?> uniqueUnits = ListUniqueUnits(signalNodes);
+        List<string?> uniqueUnits = ListAndOrderUniqueUnits(signalNodes);
 
         if (uniqueUnits is not null)
         {

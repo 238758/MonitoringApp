@@ -1,0 +1,86 @@
+﻿@using BlazorMonitoring.DisplayModels
+@using FM4017Library.DataAccess
+@using FM4017Library.Dtos
+@inject DataSimulatorService DataSimulatorService
+
+@inject DataSimulatorService dataSim
+
+<button type="button" class="btn btn-warning" @onclick="(() => ShowPopup = true)">
+    Start Simulator here
+</button>
+
+@if (_showPopup)
+{
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <h5 class="modal-title">Simulator will periodically send signals to D4 point: @ParentPoint.Id</h5>
+
+                    
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => _showPopup = false)"></button>
+                </div>
+                @*<div class="modal-body">*@
+                
+                Simulator running: @RunSimulator
+                <br>
+                <div class="row">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="(() => _showPopup = false)">Close</button>
+                        @if (!RunSimulator)
+                        {
+                            <button type="button" class="btn btn-warning" @onclick="StartSimulator">Start</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-warning" @onclick="StopSimulator">Stop</button>
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+@code {
+    // Input to component
+    [Parameter]
+    public PointNode? ParentPoint { get; set; }
+
+    public bool RunSimulator { get; set; }
+
+    public bool ShowPopup
+    {
+        get
+        {
+            return _showPopup;
+        }
+        set
+        {
+            _showPopup = value;
+        }
+    }
+
+    CreateUpdateSignalModel _model = new();
+    bool _showPopup = false;
+
+
+    private void StartSimulator()
+    {
+        RunSimulator = true;
+        dataSim._updateTimer.Enabled = true;
+    }
+    private void StopSimulator()
+    {
+        RunSimulator = false;
+        dataSim._updateTimer.Enabled = false;
+    }
+}

@@ -157,15 +157,15 @@
         get {
             List<SignalNode>? result = new();
 
-            // find # unique
-            List<SignalNode>? uniqueUnitSignals = MyPoint?.Signals?.SignalNodes?.DistinctBy(t => t.Unit).ToList();
-
-            if (uniqueUnitSignals != null)
+            if (MyPoint?.Signals?.SignalNodes is not null)
             {
+                // Create a list of signals with each unique unit
+                List<string?> uniqueUnits = SignalNodeHelpers.ListAndOrderUniqueUnits(MyPoint?.Signals?.SignalNodes);
+            
                 // get last (newest) signalnode of each unique unit
-                foreach (var u in uniqueUnitSignals)
+                foreach (var uniqueUnit in uniqueUnits)
                 {
-                    var a = MyPoint?.Signals?.SignalNodes?.FindLast(t => t.Unit == u.Unit);
+                    var a = MyPoint?.Signals?.SignalNodes?.FindLast(t => t.Unit == uniqueUnit);
 
                     // add to result if not null
                     if (a != null)

@@ -47,6 +47,10 @@ public class DataAccessService : INotifyPropertyChanged
 
     public async void GetAllSpacesPointsSignalsAsync()
     {
+        // for each exisitng point with signal check for new signals and add in list
+
+        // for new point and space add last 100
+
         SpaceNodes = await _d4DataService.GetAllSpacesPointsSignals();
     }
 

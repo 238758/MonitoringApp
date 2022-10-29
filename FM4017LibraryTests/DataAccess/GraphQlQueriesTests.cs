@@ -1,4 +1,4 @@
-﻿using FM4017Library.DataAccess.GraphQlQueries;
+﻿using FM4017Library.DataAccess;
 
 namespace FM4017LibraryTests.DataAccess;
 

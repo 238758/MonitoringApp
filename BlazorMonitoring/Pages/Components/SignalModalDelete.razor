@@ -1,0 +1,48 @@
+﻿@using FM4017Library.DataAccess
+@using FM4017Library.Dtos
+@inject IDataAccess d4DataService
+@inject DataAccessService dataAccess
+
+<button type="button" class="btn btn-danger" @onclick="(() => showPopup = !showPopup)">
+    Delete
+</button>
+
+@if (showPopup)
+{
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure you want to delete signal: @Signal?.Id ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => showPopup = false)"></button>
+                </div>
+                
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="(() => showPopup = false)">Close</button>
+                    <button type="button" class="btn btn-danger" @onclick=ExecuteDelete>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    // Input to component
+    [Parameter]
+    public SignalNode? Signal { get; set; }
+
+    bool showPopup = false;
+
+    public async void ExecuteDelete()
+    {
+        showPopup = false;
+
+        await d4DataService.DeleteSignal(Signal!.Id!);
+        
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+        Thread.Sleep(900);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+    }
+}

@@ -43,9 +43,9 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Longitude?.ToString("0.###")</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.Count</td>
                     <td>
-                    @if (! string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))
+                            @if (!string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))
                     {
-                        <a target="_blank" href="@point?.Metadata?.ImageUrl?">Show</a>
+                                <a target="_blank" href="@point.Metadata.ImageUrl">Show</a>
                     }
                     </td>
                     <td><PointModalEdit Point="point" /></td>
@@ -55,6 +55,12 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
         }
     </tbody>
 </table>
+
+ @if (SelectedPoint is not null)
+{
+    <SignalModalCreate ParentPoint="SelectedPoint"></SignalModalCreate>
+        
+}
 
 <br />
 <br />

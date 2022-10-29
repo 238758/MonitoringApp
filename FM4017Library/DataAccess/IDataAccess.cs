@@ -15,4 +15,8 @@ public interface IDataAccess
     Task EditPoint(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null);
     Task DeletePoint(string pointId);
 
+    Task CreateSignal(string pointId, string value, DateTime timestamp, string unit);
+    Task EditSignal(string signalId);
+    Task DeleteSignal(string signalId);
+
 }

@@ -106,18 +106,13 @@
 
 
 @code {
-    ////// Todo Slettes, kun for test
-    bool overrideImageUrl = true;
-
+    [Parameter]
+    public PointNode? MyPoint { get; set; }
 
     public bool ShowImage { get; set; } = false;
     public bool ShowChart { get; set; } = true;
     public bool ShowStats { get; set; } = false;
     public bool ShowLocation { get; set; } = true;
-
-
-    [Parameter]
-    public PointNode? MyPoint { get; set; }
 
     private string? Latitude
     {
@@ -143,15 +138,6 @@
     {
         get 
         { 
-            if (MyPoint?.Id == "63230e49eac7b9be6beb2983" && overrideImageUrl)
-            {
-                return "https://www.adeunis.com/wp-content/uploads/2020/07/temperature-capteur-iot-lorawan-sigfox-lpwan-adeunis-temp.jpg";
-            }
-            if (MyPoint?.Id == "63230f2eeac7b9f938eb29b1" && overrideImageUrl)
-            {
-                return "https://www.adeunis.com/wp-content/uploads/2018/10/TEMPERATURE-HUMIDITE3.jpg";
-            }
-
             return MyPoint?.Metadata?.ImageUrl; 
         }
     }

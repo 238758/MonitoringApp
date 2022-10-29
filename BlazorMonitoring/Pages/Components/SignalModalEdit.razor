@@ -1,0 +1,80 @@
+﻿@using BlazorMonitoring.DisplayModels
+@using FM4017Library.DataAccess
+@using FM4017Library.Dtos
+@inject IDataAccess d4DataService
+@inject DataAccessService dataAccess
+
+<button type="button" class="btn btn-warning" @onclick="ShowPopup">
+    Edit
+</button>
+
+@if (showPopup)
+{
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit signal: @Signal.Id </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="(() => showPopup = false)"></button>
+                </div>
+                @*<div class="modal-body">*@
+
+
+                    <EditForm Model="_model" OnValidSubmit="ExecuteChange" class="card card-body bg-light">
+                        <DataAnnotationsValidator />
+
+                        
+                        
+                        
+                        
+
+                        <div class="row">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" @onclick="(() => showPopup = false)">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+
+                    </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+@code {
+    // Input to component
+    [Parameter]
+    public SignalNode? Signal { get; set; }
+
+    CreateUpdateSignalModel _model = new();
+
+    bool showPopup = false;
+
+    private void ShowPopup()
+    {
+        _model.Unit = Signal?.Unit;
+        _model.Value = "33";
+
+        showPopup = true;
+    }
+
+
+    public async Task ExecuteChange()
+    {
+        showPopup = false;
+
+
+
+       // await d4DataService.EditSpace(_model!.Name!, Signal!.Id!, longitude, latitude, _model.ImageUrl);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+        Thread.Sleep(900);
+        dataAccess.GetAllSpacesPointsSignalsAsync();
+    }
+
+    
+}

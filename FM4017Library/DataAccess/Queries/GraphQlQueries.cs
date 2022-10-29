@@ -1,4 +1,7 @@
-﻿namespace FM4017Library.DataAccess;
+﻿using FM4017Library.Helpers;
+using System.Formats.Asn1;
+
+namespace FM4017Library.DataAccess;
 
 public static class GraphQlQueries
 {
@@ -108,6 +111,13 @@ public static class GraphQlQueries
         string metadata = $"metadata: {{ longitude: {longitude} latitude: {latitude} imageUrl: \"{imageUrl}\" }}";
 
         string result = $"mutation {{ point {{ create( input: {{ name: \"{name}\" spaceId: \"{spaceId}\" {metadata} }}) {{ id }} }}	}}";
+
+        return result;
+    }
+
+    public static string CreateSignal(string pointId, string value, DateTime timestamp, string unit)
+    {
+        string result = $"mutation {{ signal {{ create( input: {{ pointId: \"{pointId}\", signals: [ {{ unit: {unit} value: \"{value}\" type: \"{""}\" timestamp: \"{DateTimeHelpers.DateTimeToD4Format(timestamp)}\" }} ] }} ) {{ id }} }} }}";
 
         return result;
     }

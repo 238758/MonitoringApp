@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,15 @@ public static class DateTimeHelpers
         }
     }
 
+
+    public static string DateTimeToD4Format(DateTime dt)
+    {
+        // example from D4 timestamp: "2021-12-17T14:30:21.000+00:00"
+
+        string result = $"{dt.ToString("yyyy-MM-dd")}T{dt.ToString("HH:mm:ss.fff")}+00:00";
+
+        return result;
+    }
 }
 
 

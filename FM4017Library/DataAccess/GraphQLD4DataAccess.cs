@@ -1,6 +1,7 @@
 ﻿using FM4017Library.Dtos;
 using System.Text;
 using System.Text.Json;
+using System.Xml.Linq;
 
 namespace FM4017Library.DataAccess;
 
@@ -185,5 +186,50 @@ public class GraphQLD4DataAccess : IDataAccess
             return result;
         }
         return null;
+    }
+
+    public async Task CreateSignal(string pointId, string value, DateTime timestamp, string? unit = null)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.CreateSignal(pointId, value, timestamp, unit),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
+    }
+
+    public Task EditSignal(string signalId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task DeleteSignal(string signalId)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.DeleteSignal(signalId),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+        }
     }
 }

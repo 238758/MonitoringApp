@@ -16,6 +16,7 @@ public class D4GqlDataData
 
 
 
+
 public class PointsD4GqlData
 {
     [JsonPropertyName("data")]
@@ -26,4 +27,20 @@ public class PointsD4GqlDataData
 {
     [JsonPropertyName("points")]
     public Points? Points { get; set; }
+}
+
+
+
+
+
+public class SignalsD4GqlData
+{
+    [JsonPropertyName("data")]
+    public SignalsD4GqlDataData? Data { get; set; }
+}
+
+public class SignalsD4GqlDataData
+{
+    [JsonPropertyName("signals")]
+    public Signals? Signals { get; set; }
 }

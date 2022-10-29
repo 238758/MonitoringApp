@@ -74,6 +74,24 @@ public static class GraphQlQueries
 		}
 	}";
 
+	/// <summary>
+	/// Returns up to 100 last signals
+	/// </summary>
+	/// <param name="pointId">Point id where the signals are</param>
+	/// <param name="LTdateTime">Get last signals LT this dateTime</param>
+	/// <param name="GTDateTime">Earliest timestamp for signal</param>
+	/// <param name="n">paginate last n (max 100)</param>
+	/// <returns></returns>
+	public static string GetSignalsInPointBeforeDateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100)
+	{
+		string ltDt = DateTimeHelpers.DateTimeToD4Format(ltDateTime);
+        string gtDt = DateTimeHelpers.DateTimeToD4Format(gtDateTime);
+
+        string result = $"query {{ signals( where: {{ _AND: [ {{ pointId: {{ _EQ: \"{pointId}\" }} }} {{ createdAt: {{ _LT: \"{ltDt}\" _GT: \"{gtDt}\" }} }} ]}} paginate: {{ last: {n} }} ) {{ nodes {{ id pointId timestamp unit createdAt updatedAt metadata data {{ rawValue numericValue }} }} }} }}";
+
+		return result;
+	}
+
 	public static string DeleteSpace(string spaceId)
 	{
 		string result = $"mutation {{ space {{ delete(input: {{ id: \"{spaceId}\" }}) {{ id	}} }} }}";

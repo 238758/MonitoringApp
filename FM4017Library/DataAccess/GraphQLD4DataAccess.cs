@@ -188,6 +188,33 @@ public class GraphQLD4DataAccess : IDataAccess
         return null;
     }
 
+    public async Task<List<SignalNode>> GetSignalsInPointBeforeDateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.GetSignalsInPointBeforeDateTime(pointId, ltDateTime,gtDateTime, n),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var gqlData = await JsonSerializer.DeserializeAsync<SignalsD4GqlData>
+                (await response.Content.ReadAsStreamAsync());
+
+            var result = gqlData?.Data?.Signals?.SignalNodes;
+
+            return result;
+        }
+        return null;
+    }
+
     public async Task CreateSignal(string pointId, string value, DateTime timestamp, string? unit = null)
     {
         var queryObject = new

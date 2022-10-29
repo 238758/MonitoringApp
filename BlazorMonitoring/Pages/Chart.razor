@@ -1,0 +1,14 @@
+﻿@page "/Chart"
+@using FM4017Library.DataAccess
+@using BlazorMonitoring.Pages.Components
+
+@inject IDataAccess _d4DataService
+
+<h3>Chart</h3>
+
+<SignalChart SignalNodes="SignalNodes"></SignalChart>
+<button @onclick="GetSignals">Click me</button>
+
+@code {
+
+}

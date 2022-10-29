@@ -1,56 +1,85 @@
-﻿@page "/in"
-@inject IConfiguration _config
+﻿@page "/"
+@using BlazorMonitoring.Pages.Components
+@using FM4017Library.Dtos
+@using System.ComponentModel
+@inject IConfiguration config
+@inject DataAccessService dataAccess
 
-<PageTitle>Index</PageTitle>
+@if (dataAccess?.SpaceNodes is null)
+{
+    <p><em>Loading...</em></p>
+}
 
-<h3>Appsettings</h3>
-<br />
-<h5>Dimension Four connection</h5>
+else
+{
+    @if (ShowPointsWithoutSignals)
+    {
+        <button class="btn btn-secondary" @onclick="(() => ShowPointsWithoutSignals = !ShowPointsWithoutSignals)">Show Points Without Signals</button>
+    }
+    else
+    {
+        <button class="btn btn-primary" @onclick="(() => ShowPointsWithoutSignals = !ShowPointsWithoutSignals)">Show Points Without Signals</button>
+    }
+    <br />
+    <br />
 
-<p>
-    Api_url Value: @Api_url
-</p>
+    
 
-<p>
-    Header1Name: @Header1Name
-</p>
+    <div class="row">
+        @foreach (var point in Points)
+        {
+            @if (point?.Signals?.SignalNodes?.FirstOrDefault() is not null || ShowPointsWithoutSignals)
+            {
+                <div class="col-md-4">
+                    <D4Point Mypoint=@point></D4Point>
+                </div>
+            }  
+        }
+    </div>
+}
 
-<p>
-    Header1Value: @Header1Value
-</p>
-
-<p>
-    Header2Name: @Header2Name
-</p>
-
-<p>
-    @*Header2Value: @Header2Value*@
-    Header2Value: ******
-</p>
-
-<br />
-<h5>Various</h5>
-<p>
-    PollRateMinutes: @PollRateMinutes
-</p>
 
 @code {
-    string Api_url = "";
-    string Header1Name = "";
-    string Header1Value = "";
-    string Header2Name = "";
-    string Header2Value = "";
+    public bool ShowPointsWithoutSignals { get; set; } = false;
 
-    string PollRateMinutes = "";
+    public List<PointNode> Points 
+    { 
+        get
+        {
+            return GetPoints(dataAccess.SpaceNodes);
+        }
+    }
 
     protected override void OnInitialized()
     {
-        Api_url = _config["DimensionFour:ApiUrl"];
-        Header1Name = _config["DimensionFour:Header1Name"];
-        Header1Value = _config["DimensionFour:Header1Value"];
-        Header2Name = _config["DimensionFour:Header2Name"];
-        Header2Value = _config["DimensionFour:Header2Value"];
+        dataAccess.PropertyChanged += PropertyHasChanged;
+    }
 
-        PollRateMinutes = _config["PollRateMinutes"];
+    private void PropertyHasChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    // Get all points in nested space list
+    private List<PointNode> GetPoints(List<SpaceNode>? spaceNodes)
+    {
+        List<PointNode> result = new();
+
+        if (spaceNodes is not null)
+        {
+            foreach (var space in spaceNodes)
+            {
+                if (space?.Points?.PointNodes is not null)
+                {
+                    foreach (var point in space.Points.PointNodes)
+                    {
+                        result.Add(point);
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }

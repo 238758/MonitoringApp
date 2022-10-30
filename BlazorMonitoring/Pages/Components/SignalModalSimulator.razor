@@ -5,7 +5,7 @@
 
 @inject DataSimulatorService dataSim
 
-@if (RunSimulator)
+@if (!RunSimulator)
 {
     <button type="button" class="btn btn-warning" @onclick="(() => ShowPopup = true)">
         Start Simulator here

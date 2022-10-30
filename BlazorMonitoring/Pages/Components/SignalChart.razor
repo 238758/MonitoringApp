@@ -1,7 +1,7 @@
 ﻿@using FM4017Library.Dtos
 @using FM4017Library.Helpers
 
-<SfChart>
+<SfChart Palettes="@palettes" Height="300px">
     <ChartPrimaryXAxis Format="HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> @*Title="TimeStamp"*@
     @*<ChartPrimaryYAxis Title="Value" />*@
     <ChartZoomSettings EnableMouseWheelZooming="true" EnablePinchZooming="true" EnableSelectionZooming="true"></ChartZoomSettings>
@@ -24,6 +24,10 @@
 @code {
     [Parameter]
     public List<SignalNode>? SignalNodes { get; set; }
+
+    // The default color of series or points can be changed by providing a custom color palette to the Palettes property.
+    public String[] palettes = new String[] { "#0b5ed7", "#5c636a", "#79ddd5" };
+
 
     // Split the Signal
     private List<List<Signal>> UniqueSignalsLists

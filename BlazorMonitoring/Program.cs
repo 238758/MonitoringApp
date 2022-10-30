@@ -10,7 +10,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSyncfusionBlazor();
 
 //License (free for personal and small business use - ref syncfusion.com)
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SfLicense"]);
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzUwNjg1QDMxMzkyZTM0MmUzMEltTUhCZGltb2ZiR21PTnBSMjE0Y041MUQvK0x6MkV1OFA5MGRKZWdiWWM9");
 
 // Using httpclient factory to register a dataservice requesting an interface
 // Making the service available for dependency injection (DI), giving loose coupling to the concrete implementation

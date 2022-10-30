@@ -49,7 +49,7 @@ public partial class Chart
         GettingSignals = true;
 
         // to avoid to long loop
-        int queryLimit = 25;
+        int queryLimit = 50;
 
         SignalNodes.Clear();
         //List<SignalNode>? signalNodes = new();

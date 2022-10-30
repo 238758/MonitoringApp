@@ -188,11 +188,38 @@ public class GraphQLD4DataAccess : IDataAccess
         return null;
     }
 
-    public async Task<List<SignalNode>> GetSignalsInPointBeforeDateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100)
+    public async Task<List<SignalNode>> GetLastSignalsInPointBetween2DateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100)
     {
         var queryObject = new
         {
-            query = GraphQlQueries.GetSignalsInPointBeforeDateTime(pointId, ltDateTime,gtDateTime, n),
+            query = GraphQlQueries.GetLastSignalsInPointBetween2DateTime(pointId, ltDateTime,gtDateTime, n),
+            variables = new { }
+        };
+
+        var query = new StringContent(
+            JsonSerializer.Serialize(queryObject),
+            Encoding.UTF8,
+            "application/json");
+
+        var response = await _httpclient.PostAsync("", query);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var gqlData = await JsonSerializer.DeserializeAsync<SignalsD4GqlData>
+                (await response.Content.ReadAsStreamAsync());
+
+            var result = gqlData?.Data?.Signals?.SignalNodes;
+
+            return result;
+        }
+        return null;
+    }
+
+    public async Task<List<SignalNode>> GetFirstSignalsInPointBetween2DateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100)
+    {
+        var queryObject = new
+        {
+            query = GraphQlQueries.GetFirstSignalsInPointBetween2DateTime(pointId, ltDateTime, gtDateTime, n),
             variables = new { }
         };
 

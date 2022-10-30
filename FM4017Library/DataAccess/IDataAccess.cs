@@ -7,7 +7,8 @@ public interface IDataAccess
     Task<List<SpaceNode>?> GetAllSpacesPointsSignals();
     Task<List<PointNode>?> GetAllPointsSignals();
 
-    Task<List<SignalNode>> GetSignalsInPointBeforeDateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100);
+    Task<List<SignalNode>> GetLastSignalsInPointBetween2DateTime(string pointId, DateTime ltDateTime, DateTime gtDateTime, int n = 100);
+    Task<List<SignalNode>> GetFirstSignalsInPointBetween2DateTime(string pointId, DateTime endDateTime, DateTime startDateTime, int n = 100);
 
 
     Task CreateSpace(string name, string? parentId, double? latitude, double? longitude, string? imageUrl);

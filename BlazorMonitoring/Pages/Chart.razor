@@ -18,28 +18,55 @@
     <hr class="border border-primary border-3 opacity-25">
     <h5>Select Data</h5>
 
-        <div class="row">
-            <label class="col-auto">Point:</label>
-            <div class="col-auto">
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-auto">Start Date:</label>
-            <div class="col-auto">
-                <SfDatePicker TValue="DateTime?" Value="@StartDate" Placeholder='Choose a Start Date'></SfDatePicker>
-            </div>
-        </div>
-    <div class="row">
-        <label class="col-auto">Duration:</label>
-        <div class="col-auto">
-        </div>
+    <label>Point:</label>
+    <SfDropDownList TValue="string" Value="SelectedPointId" TItem="HelperPoint" DataSource="@PointsWithSignals" Placeholder="Select a point">
+        <DropDownListFieldSettings Value="ID" Text="Name"></DropDownListFieldSettings>
+    </SfDropDownList>
+
+    <label class="col-md-3">Start Date:</label>
+    <div class="col-auto">
+        <SfDatePicker TValue="DateTime?" Value="@StartDate" Placeholder='Choose a Start Date'></SfDatePicker>
     </div>
 
-        <button class="btn btn-primary" @onclick="GetSignals">Update Chart</button>
+    <label class="col-md-3">Duration:</label>
+    <SfDropDownList @bind-Value="SelectedDuration" TValue="string" TItem="Duration" DataSource="@LocalData" Placeholder="Select a duration">
+        <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
+    </SfDropDownList>
+
+       
+    <br />
+    <br />
+    <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPointId, StartDate, 3) )">Update Chart</button>
     
 
 </div>
 
 @code {
-    public DateTime StartDate { get; set; } = DateTime.Now;
+    public DateTime? StartDate { get; set; } = DateTime.Now.AddDays(-10);
+    public string SelectedPointId { get; set; } = "63230f2eeac7b9f938eb29b1";
+    private string SelectedDuration { get; set; }
+
+    private class HelperPoint
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    private List<HelperPoint> PointsWithSignals = new() {
+        new HelperPoint() { Id = "1dsafadsfas", Name = "Comfirt Sensor"},
+        new HelperPoint() { Id = "sdfadsf2", Name = "Temp sensor"},
+    };
+
+
+    private class Duration
+    {
+        public int Days { get; set; }
+        public string Text { get; set; }
+    }
+    private List<Duration> LocalData = new() { 
+        new Duration() { Days = 1, Text = "1 day"},
+        new Duration() { Days = 2, Text = "2 days"},
+        new Duration() { Days = 3, Text = "3 days"},
+        new Duration() { Days = 7, Text = "1 week"},
+    };
 }

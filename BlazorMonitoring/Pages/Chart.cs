@@ -6,6 +6,9 @@ namespace BlazorMonitoring.Pages;
 
 public partial class Chart
 {
+    public string SelectedPointId { get; set; } = "63230f2eeac7b9f938eb29b1";
+
+
     // for each signal with min 100
     DateTime? dt = DateTime.UtcNow;
     private List<SignalNode>? _signalNodes = new();
@@ -26,11 +29,11 @@ public partial class Chart
 
     public async Task<List<SignalNode>?> GetSignals()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (dt is not null)
             {
-                var signals = await _d4DataService.GetSignalsInPointBeforeDateTime("63230e49eac7b9be6beb2983", dt.Value, DateTime.UtcNow.AddYears(-1));
+                var signals = await _d4DataService.GetSignalsInPointBeforeDateTime(SelectedPointId, dt.Value, DateTime.UtcNow.AddYears(-1));
                 dt = signals?.FirstOrDefault()?.Timestamp;
 
                 if (signals is not null)

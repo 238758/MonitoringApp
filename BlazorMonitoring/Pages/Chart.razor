@@ -1,13 +1,18 @@
-﻿@page "/Chart"
+﻿@page "/ChartHistory"
 @using FM4017Library.DataAccess
 @using BlazorMonitoring.Pages.Components
 
 @inject IDataAccess _d4DataService
 
 <h3>Chart</h3>
+<br />
 
-<SignalChart SignalNodes="SignalNodes"></SignalChart>
-<button @onclick="GetSignals">Click me</button>
+<div style="background-color:white; text-align:center; border-radius: 30px; padding: 30px">
+
+    <HistoricalSignalChart SignalNodes="SignalNodes"></HistoricalSignalChart>
+    <button class="btn btn-primary" @onclick="GetSignals">Click me</button>
+
+</div>
 
 @code {
 

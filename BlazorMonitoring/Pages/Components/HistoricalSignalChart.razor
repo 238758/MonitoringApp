@@ -1,0 +1,105 @@
+﻿@using FM4017Library.Dtos
+@using FM4017Library.Helpers
+
+<SfChart Title="Selected Point">
+    @*<ChartPrimaryXAxis Format="HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> *@
+    <ChartPrimaryXAxis Format="dd:MM:yy HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> @*Title="TimeStamp"*@
+    @*<ChartPrimaryYAxis Title="Value" />*@
+    <ChartZoomSettings EnableMouseWheelZooming="true" EnablePinchZooming="true" EnableSelectionZooming="true"></ChartZoomSettings>
+    <ChartTooltipSettings Enable="true" />
+    <ChartLegendSettings Visible="true" Position="LegendPosition.Top" />
+    <ChartSeriesCollection>
+        @foreach (var signalsList in UniqueSignalsLists)
+        {
+            <ChartSeries
+                DataSource="@signalsList"
+                Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))" 
+                XName="TimeStamp" 
+                YName="Value" 
+                Type="ChartSeriesType.Line">
+            </ChartSeries>
+        }
+    </ChartSeriesCollection>
+</SfChart>
+
+@code {
+
+    SfChart ChartObj;
+
+    [Parameter]
+    public List<SignalNode>? SignalNodes { get; set; }
+
+    private async Task Print(MouseEventArgs args)
+    {
+        await ChartObj.PrintAsync();
+    }
+
+
+    // Split the Signal
+    private List<List<Signal>> UniqueSignalsLists
+    {
+        get
+        {
+            List<List<Signal>> result = new ();
+
+            // If channel is not null filter out channel 1 (changed by dataloggin group 27.10.22)
+            if (SignalNodes?.LastOrDefault()?.Metadata?.Channel is not null)
+            {
+                List<Signal> channelResult = new();
+
+                foreach (var signal in SignalNodes!.Where(t => t.Metadata.Channel == "1"))
+                {
+                    if (signal?.Timestamp is not null)
+                    {
+                        channelResult.Add(new Signal
+                            {
+                                TimeStamp = DateTimeHelpers.UtcTime2Local(signal.Timestamp.Value),
+                                Value = Convert.ToDouble(signal?.Data?.RawValue),
+                                Unit = signal?.Unit
+                            });
+                    }
+                }
+                result.Add(channelResult);
+                return result;
+            }
+
+            // Create a list of signals with each unique unit
+            List<string?> uniqueUnits = SignalNodeHelpers.ListAndOrderUniqueUnits(SignalNodes);
+
+            if (uniqueUnits is not null)
+            {
+                foreach (var uniqeUnit in uniqueUnits)
+                {
+                    // holds result per unit
+                    List<Signal> unitResult = new();
+
+                    foreach (var signal in SignalNodes!.Where(t => t.Unit == uniqeUnit))
+                    {
+                        if (signal?.Timestamp is not null)
+                        {
+                            unitResult.Add(new Signal
+                                {
+                                    TimeStamp = DateTimeHelpers.UtcTime2Local(signal.Timestamp.Value),
+                                    Value = Convert.ToDouble(signal?.Data?.RawValue),
+                                    Unit = signal?.Unit
+                        });
+                        }
+                    }
+
+                    result.Add(unitResult);
+                }
+
+            }
+
+            return result;
+        }
+    }
+
+    // helper class used to pass data to the chart
+    private class Signal
+    {
+        public DateTime? TimeStamp { get; set; }
+        public double Value { get; set; }
+        public string? Unit { get; set; }
+    }
+}

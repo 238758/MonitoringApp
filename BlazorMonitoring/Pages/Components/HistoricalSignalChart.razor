@@ -2,6 +2,8 @@
 @using FM4017Library.Helpers
 
 
+
+
 <SfChart @ref="ChartObj" Title="Selected Point" Palettes="@palettes" Height="100%">
     <ChartPrimaryXAxis Format="dd:MM:yy HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> @*Title="TimeStamp"*@
     @*<ChartPrimaryYAxis Title="Value" />*@
@@ -22,20 +24,19 @@
     </ChartSeriesCollection>
 </SfChart>
 
-<button class="btn btn-primary" @onclick="Export">Export Chart</button>
+<br />
+<button class="btn btn-primary" @onclick="Export">Export Chart to file</button>
+<br />
 
-<div id="wrapper">
-    <SfDatePicker TValue="DateTime?" Placeholder='Choose a Date'></SfDatePicker>
-</div>
 
 @code {
+    
+    [Parameter]
+    public List<SignalNode>? SignalNodes { get; set; }
+
     // Change default color of series in chart
     public String[] palettes = new String[] { "#0b5ed7", "#5c636a", "#79ddd5" };
 
-    // Lazy loading https://blazor.syncfusion.com/documentation/chart/how-to/lazy-loading
-
-
-    
     SfChart ChartObj;
     private async Task Export(MouseEventArgs args)
     {
@@ -43,12 +44,6 @@
         await ChartObj.ExportAsync(ExportType.PNG, "pngImage");
         //await ChartObj.PrintAsync();
     }
-
-
-    [Parameter]
-    public List<SignalNode>? SignalNodes { get; set; }
-
-    
 
 
     // Split the Signal

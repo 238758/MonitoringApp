@@ -19,7 +19,7 @@ public class DataSimulatorService
 	{
 		_d4DataService = d4DataService;
 
-        _updateTimer = new System.Timers.Timer(60_000) { Enabled = false };
+        _updateTimer = new System.Timers.Timer(10 * 60_000) { Enabled = false };
         _updateTimer.Elapsed += UpdateTimer_Elapsed;
     }
 

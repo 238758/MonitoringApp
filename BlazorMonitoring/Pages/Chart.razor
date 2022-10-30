@@ -1,6 +1,7 @@
 ﻿@page "/ChartHistory"
 @using FM4017Library.DataAccess
 @using BlazorMonitoring.Pages.Components
+@using FM4017Library.Dtos
 
 @inject IDataAccess _d4DataService
 
@@ -19,9 +20,10 @@
     <h5>Select Data</h5>
 
     <label>Point:</label>
-    <SfDropDownList TValue="string" Value="SelectedPointId" TItem="HelperPoint" DataSource="@PointsWithSignals" Placeholder="Select a point">
-        <DropDownListFieldSettings Value="ID" Text="Name"></DropDownListFieldSettings>
+    <SfDropDownList TValue="string" TItem="PointNode" @bind-Value="SelectedPointId" DataSource="@points" Placeholder="Select a point">
+        <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
     </SfDropDownList>
+
 
     <label class="col-md-3">Start Date:</label>
     <div class="col-auto">
@@ -38,10 +40,6 @@
     <br />
     <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPointId, StartDate, SelectedDuration) )">Update Chart</button>
 
-
-    <button class="btn btn-primary" @onclick="PointNodesWithSignals">PointNodesWithSignals</button>
-
-
     @if (GettingSignals)
     {
         <p><em>Loading...</em></p>
@@ -55,16 +53,8 @@
     public DateTime? StartDate { get; set; } = DateTime.Now.AddDays(-10);
     private int SelectedDuration { get; set; } = 1;
 
-    public class HelperPoint
-    {
-        public string? Id { get; set; }
-        public string? Name { get; set; }
-    }
+    public List<PointNode> points = new();
 
-    public List<HelperPoint> PointsWithSignals = new() {
-        new HelperPoint() { Id = "1dsafadsfas", Name = "Comfirt Sensor"},
-        new HelperPoint() { Id = "sdfadsf2", Name = "Temp sensor"},
-    };
 
     public class Duration
     {
@@ -79,4 +69,9 @@
         new Duration() { Days = 7, Text = "1 week"},
     };
 
+    protected override async Task OnInitializedAsync()
+    {
+        points = await PointNodesWithSignals();
+        StateHasChanged();
+    }
 }

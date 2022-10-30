@@ -21,16 +21,7 @@ public partial class Chart
         }
     }
 
-    //public List<PointNode> PointsForList
-    //{
-    //    get
-    //    {
-    //        return null;
-    //    }
-    //}
-
-    
-
+ 
     public async Task<List<PointNode>> PointNodesWithSignals()
     {
         // get all points from D4
@@ -51,7 +42,6 @@ public partial class Chart
         
         return result;
     }
-
 
     public async Task<List<SignalNode>?> GetSignals(string pointId, DateTime? startDate, int daysToChart)
     {
@@ -108,5 +98,4 @@ public partial class Chart
         GettingSignals = false;
         return SignalNodes;
     }
-
 }

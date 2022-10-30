@@ -5,9 +5,19 @@
 
 @inject DataSimulatorService dataSim
 
-<button type="button" class="btn btn-warning" @onclick="(() => ShowPopup = true)">
-    Start Simulator here
-</button>
+@if (RunSimulator)
+{
+    <button type="button" class="btn btn-warning" @onclick="(() => ShowPopup = true)">
+        Start Simulator here
+    </button>
+}
+else
+{
+    <button type="button" class="btn btn-danger" @onclick="(() => ShowPopup = true)">
+        Stop Simulator here
+    </button>
+}
+
 
 @if (_showPopup)
 {

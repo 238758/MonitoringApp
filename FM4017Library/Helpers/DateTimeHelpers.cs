@@ -22,7 +22,7 @@ public static class DateTimeHelpers
             //return TimeZoneInfo.ConvertTimeFromUtc(utcTime.Value, TimeZoneInfo.Local);
             
             // convert to norwegian time
-            return utcTime.Value.AddHours(2);
+            return utcTime.Value.AddHours(1);
 
             // Convert DateTime to user's time zone with server-side Blazor. JSInterop
             // https://www.meziantou.net/convert-datetime-to-user-s-time-zone-with-server-side-blazor.htm

@@ -1,8 +1,6 @@
 ﻿@using BlazorMonitoring.DisplayModels
 @using FM4017Library.DataAccess
 @using FM4017Library.Dtos
-@inject DataSimulatorService DataSimulatorService
-
 @inject DataSimulatorService dataSim
 
 @if (!RunSimulator)
@@ -27,7 +25,7 @@ else
             <div class="modal-content">
                 <div class="modal-header">
                     
-                    <h5 class="modal-title">Simulator will periodically send signals to D4 point: @ParentPoint.Id</h5>
+                    <h5 class="modal-title">Simulator will periodically send signals to D4 point: @ParentPoint?.Id</h5>
 
                     
                     
@@ -65,7 +63,7 @@ else
     [Parameter]
     public PointNode? ParentPoint { get; set; }
 
-    public bool RunSimulator { get; set; }
+    public bool RunSimulator { get; set; } = false;
 
     public bool ShowPopup
     {
@@ -86,11 +84,11 @@ else
     private void StartSimulator()
     {
         RunSimulator = true;
-        dataSim._updateTimer.Enabled = true;
+        dataSim!._updateTimer!.Enabled = true;
     }
     private void StopSimulator()
     {
         RunSimulator = false;
-        dataSim._updateTimer.Enabled = false;
+        dataSim!._updateTimer!.Enabled = false;
     }
 }

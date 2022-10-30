@@ -1,6 +1,4 @@
 ﻿using FM4017Library.DataAccess;
-using FM4017Library.Dtos;
-using System.Diagnostics.Metrics;
 using System.Timers;
 
 namespace BlazorMonitoring.Data;
@@ -9,8 +7,7 @@ public class DataSimulatorService
 {
     public bool SimulatorEnabled { get; set; }
 
-    public System.Timers.Timer? _updateTimer;
-    private Random _random = new();
+    public System.Timers.Timer _updateTimer;
     private int _counter = 0;
 
     private readonly IDataAccess _d4DataService;
@@ -19,7 +16,7 @@ public class DataSimulatorService
 	{
 		_d4DataService = d4DataService;
 
-        _updateTimer = new System.Timers.Timer(10 * 60_000) { Enabled = false };
+        _updateTimer = new System.Timers.Timer(60_000) { Enabled = false };
         _updateTimer.Elapsed += UpdateTimer_Elapsed;
     }
 

@@ -15,8 +15,8 @@ public interface IDataAccess
     Task EditSpace(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null);
     Task DeleteSpace(string spaceId);
 
-    Task CreatePoint(string name, string? spaceId, double? latitude, double? longitude, string? imageUrl);
-    Task EditPoint(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null);
+    Task CreatePoint(string name, string? spaceId, double? latitude, double? longitude, string? imageUrl, string? devEUI = null);
+    Task EditPoint(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null, string? devEUI = null);
     Task DeletePoint(string pointId);
 
     Task CreateSignal(string pointId, string value, DateTime timestamp, string unit);

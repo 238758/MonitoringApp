@@ -60,6 +60,13 @@
                             <ValidationMessage For="@(() => _model.ImageUrl)" />
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="imageUrl" class="col-md-3 col-form-label">DevEUI:</label>
+                        <div class="col-md-9">
+                            <InputText id="IamgeUrl" class="form-control" @bind-Value="_model.DevEui" />
+                            <ValidationMessage For="@(() => _model.DevEui)" />
+                        </div>
+                    </div>
 
 
 
@@ -110,7 +117,7 @@
         double.TryParse(_model.Latitude, out latitude);
         double.TryParse(_model.Longitude, out longitude);
 
-        await d4DataService.CreatePoint(_model!.Name!, ParentSpace?.Id, latitude, longitude, _model.ImageUrl);
+        await d4DataService.CreatePoint(_model!.Name!, ParentSpace?.Id, latitude, longitude, _model.ImageUrl, _model.DevEui);
 
         dataAccess.GetAllSpacesPointsSignalsAsync();
         // Give D4 some time to update

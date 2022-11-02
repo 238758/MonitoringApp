@@ -140,9 +140,9 @@ public static class GraphQlQueries
         return result;
     }
 
-    public static string CreatePoint(string name, string? spaceId = null, double? longitude = null, double? latitude = null, string? imageUrl = null)
+    public static string CreatePoint(string name, string? spaceId = null, double? longitude = null, double? latitude = null, string? imageUrl = null, string? devEui = null)
     {
-        string metadata = $"metadata: {{ longitude: {longitude} latitude: {latitude} imageUrl: \"{imageUrl}\" }}";
+        string metadata = $"metadata: {{ longitude: {longitude} latitude: {latitude} imageUrl: \"{imageUrl}\" DevEUI: \"{devEui}\" }}";
 
         string result = $"mutation {{ point {{ create( input: {{ name: \"{name}\" spaceId: \"{spaceId}\" {metadata} }}) {{ id }} }}	}}";
 
@@ -165,9 +165,9 @@ public static class GraphQlQueries
         return result;
     }
 
-    public static string EditPoint(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null)
+    public static string EditPoint(string name, string id, double? longitude = null, double? latitude = null, string? imageUrl = null, string? devEui = null)
     {
-        string metadata = $"metadata: {{ longitude: {longitude} latitude: {latitude} imageUrl: \"{imageUrl}\" }}";
+        string metadata = $"metadata: {{ longitude: {longitude} latitude: {latitude} imageUrl: \"{imageUrl}\" DevEUI: \"{devEui}\" }}";
 
         string result = $"mutation {{ point {{ update(input: {{ id: \"{id}\" point: {{ name: \"{name}\" {metadata} }} }}) {{ id }} }} }}";
 

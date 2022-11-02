@@ -19,6 +19,7 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
             <th>SNR</th>
             <th>Latitude</th>
             <th>Longitude</th>
+            <th>DevEUI</th>
             <th>Signals</th>
             <th>Image</th>
             <th>Edit</th>
@@ -41,6 +42,7 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Latitude?.ToString("0.###")</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Longitude?.ToString("0.###")</td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.DevEui</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.Count</td>
                     <td>
                             @if (!string.IsNullOrEmpty(@point?.Metadata?.ImageUrl))

@@ -74,11 +74,11 @@ public class GraphQLD4DataAccess : IDataAccess
         }
     }
 
-    public async Task CreatePoint(string name, string? spaceId, double? latitude, double? longitude, string? imageUrl)
+    public async Task CreatePoint(string name, string? spaceId, double? latitude, double? longitude, string? imageUrl, string? devEui = null)
     {
         var queryObject = new
         {
-            query = GraphQlQueries.CreatePoint(name, spaceId, latitude, longitude, imageUrl),
+            query = GraphQlQueries.CreatePoint(name, spaceId, latitude, longitude, imageUrl, devEui),
             variables = new { }
         };
 
@@ -114,11 +114,11 @@ public class GraphQLD4DataAccess : IDataAccess
         }
     }
 
-    public async Task EditPoint(string name, string id, double? latitude, double? longitude, string? imageUrl)
+    public async Task EditPoint(string name, string id, double? latitude, double? longitude, string? imageUrl, string? devEui)
     {
         var queryObject = new
         {
-            query = GraphQlQueries.EditPoint(name, id, latitude, longitude, imageUrl),
+            query = GraphQlQueries.EditPoint(name, id, latitude, longitude, imageUrl, devEui),
             variables = new { }
         };
 

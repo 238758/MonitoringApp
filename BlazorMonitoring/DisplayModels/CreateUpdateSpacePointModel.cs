@@ -7,6 +7,9 @@ namespace BlazorMonitoring.DisplayModels
         [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }
 
+        //[Required(ErrorMessage = "DevEUI is required.")]
+        public string? DevEui { get; set; }
+
         //[Required(ErrorMessage = "Latitude is required.")]
         public string? Latitude { get; set; }
 

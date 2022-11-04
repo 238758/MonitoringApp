@@ -186,4 +186,7 @@ public partial class SignalMetadata
 
     [JsonPropertyName("value_QC")]
     public string? ValueQC { get; set; }
+
+    [JsonPropertyName("eventCounter")]
+    public string? EventCounter { get; set; }
 }

@@ -18,7 +18,7 @@ public static class Prettify
         }
         else if (unit == "GENERIC")
         {
-            return "State [1=Open, 0=Closed]";
+            return "State [1=Closed, 0=Open]";
         }
 
         return unit;

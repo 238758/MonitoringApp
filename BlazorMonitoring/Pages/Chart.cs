@@ -1,8 +1,4 @@
-﻿using BlazorMonitoring.Pages.Components;
-using FM4017Library.DataAccess;
-using FM4017Library.Dtos;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using FM4017Library.Dtos;
 
 namespace BlazorMonitoring.Pages;
 
@@ -21,7 +17,7 @@ public partial class Chart
         }
     }
 
- 
+
     public async Task<List<PointNode>> PointNodesWithSignals()
     {
         // get all points from D4
@@ -39,12 +35,17 @@ public partial class Chart
                 }
             }
         }
-        
+
         return result;
     }
 
-    public async Task<List<SignalNode>?> GetSignals(string pointId, DateTime? startDate, int daysToChart)
+    public async Task<List<SignalNode>?> GetSignals(string? pointId, DateTime? startDate, int daysToChart)
     {
+        if (pointId is null)
+        {
+            return null;
+        }
+
         // For UI indication
         GettingSignals = true;
 
@@ -59,7 +60,7 @@ public partial class Chart
 
         for (int i = 0; i < queryLimit; i++)
         {
-            
+
 
             // Return if end datetime is reached
             if (paginationStartDt > EndDt)
@@ -73,7 +74,7 @@ public partial class Chart
             {
                 // await for next 100 (max signals)
                 var signals = await _d4DataService.GetFirstSignalsInPointBetween2DateTime(pointId, EndDt.Value, paginationStartDt.Value);
-                
+
                 // set start datetime for next iteration
                 paginationStartDt = signals?.LastOrDefault()?.Timestamp;
 
@@ -89,7 +90,7 @@ public partial class Chart
                         return SignalNodes;
                     }
                 }
-                
+
 
             }
         }

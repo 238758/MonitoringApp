@@ -2,6 +2,7 @@
 @using FM4017Library.DataAccess
 @using BlazorMonitoring.Pages.Components
 @using FM4017Library.Dtos
+@using FM4017Library.Helpers
 
 @inject IDataAccess _d4DataService
 
@@ -12,15 +13,16 @@
     <h3>Historical Data</h3>
     <hr class="border border-primary border-3 opacity-25">
 
-    <HistoricalSignalChart SignalNodes="SignalNodes"></HistoricalSignalChart>
+    <HistoricalSignalChart ChartTitle="@(Prettify.Name(SelectedPoint?.Name))" SignalNodes="SignalNodes"></HistoricalSignalChart>
 
     @*Select Data*@
     <br />
     <hr class="border border-primary border-3 opacity-25">
     <h5>Select Data</h5>
-
+    
     <label>Point:</label>
-    <SfDropDownList TValue="string" TItem="PointNode" @bind-Value="SelectedPointId" DataSource="@points" Placeholder="Select a point">
+    @*<SfDropDownList TValue="string" TItem="PointNode" @bind-Value="SelectedPointId" DataSource="@points" Placeholder="Select a point">*@
+    <SfDropDownList TValue="PointNode" TItem="PointNode" @bind-Value="SelectedPoint" DataSource="@points" Placeholder="Select a point">
         <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
     </SfDropDownList>
 
@@ -31,14 +33,14 @@
     </div>
 
     <label class="col-md-3">Duration:</label>
-    <SfDropDownList TValue="int" TItem="Duration" @bind-Value="SelectedDuration" DataSource="@LocalData">
+    <SfDropDownList TValue="int" TItem="Duration" @bind-Value="SelectedDuration" DataSource="@DisplayDuration">
         <DropDownListFieldSettings Value="Days" Text="Text"></DropDownListFieldSettings>
     </SfDropDownList>
 
        
     <br />
     <br />
-    <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPointId, StartDate, SelectedDuration) )">Update Chart</button>
+    <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPoint?.Id, StartDate, SelectedDuration) )">Update Chart</button>
 
     @if (GettingSignals)
     {
@@ -48,18 +50,15 @@
     {
         <p><small> (Signals: @SignalNodes.Count())</small></p>
     }
-    
 
 </div>
 
 @code {
-    public string SelectedPointId { get; set; } = "63230f2eeac7b9f938eb29b1";
-
+    public PointNode? SelectedPoint {get;set;}
     public DateTime? StartDate { get; set; } = DateTime.Now.AddDays(-1);
-    private int SelectedDuration { get; set; } = 1;
-
+    public int SelectedDuration { get; set; } = 1;
+    
     public List<PointNode> points = new();
-
 
     public class Duration
     {
@@ -67,7 +66,7 @@
         public string? Text { get; set; }
     }
 
-    public List<Duration> LocalData = new() {
+    public List<Duration> DisplayDuration = new() {
         new Duration() { Days = 1, Text = "1 day"},
         new Duration() { Days = 2, Text = "2 days"},
         new Duration() { Days = 3, Text = "3 days"},

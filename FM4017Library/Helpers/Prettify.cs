@@ -6,15 +6,19 @@ public static class Prettify
     {
         if (unit == "CELSIUS_DEGREES")
         {
-            return "°C";
+            return "Temperature [°C]";
         }
         else if (unit == "PERCENTS")
         {
-            return "% RH";
+            return "Humidity [%RH]";
         }
         else if (unit == "KILOGRAMS")
         {
             return "kg";
+        }
+        else if (unit == "GENERIC")
+        {
+            return "State [1=Open, 0=Closed]";
         }
 
         return unit;

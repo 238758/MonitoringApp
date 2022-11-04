@@ -2,9 +2,10 @@
 @using FM4017Library.Helpers
 
 
+@ChartTitle
 
-
-<SfChart @ref="ChartObj" Title="Selected Point" Palettes="@palettes" Height="100%">
+@*Title="@ChartTitle"*@
+<SfChart @ref="ChartObj"  Palettes="@palettes" Height="100%">
     <ChartPrimaryXAxis Format="dd:MM:yy HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> @*Title="TimeStamp"*@
     @*<ChartPrimaryYAxis Maximum="100" />*@
     <ChartZoomSettings EnableMouseWheelZooming="true" EnablePinchZooming="true" EnableSelectionZooming="true"></ChartZoomSettings>
@@ -30,9 +31,12 @@
 
 
 @code {
-    
+
     [Parameter]
     public List<SignalNode>? SignalNodes { get; set; }
+
+    [Parameter]
+    public string? ChartTitle { get; set; } = "Select a point";
 
     // Change default color of series in chart
     public String[] palettes = new String[] { "#0b5ed7", "#5c636a", "#79ddd5" };

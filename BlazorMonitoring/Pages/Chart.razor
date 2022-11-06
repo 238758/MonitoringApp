@@ -13,7 +13,7 @@
     <h3>Historical Data</h3>
     <hr class="border border-primary border-3 opacity-25">
 
-    <HistoricalSignalChart ChartTitle="@(Prettify.Name(SelectedPoint?.Name))" SignalNodes="SignalNodes"></HistoricalSignalChart>
+    <HistoricalSignalChart ChartTitle="@ChartTitle" SignalNodes="SignalNodes"></HistoricalSignalChart>
 
     @*Select Data*@
     <br />
@@ -21,7 +21,6 @@
     <h5>Select Data</h5>
     
     <label>Point:</label>
-    @*<SfDropDownList TValue="string" TItem="PointNode" @bind-Value="SelectedPointId" DataSource="@points" Placeholder="Select a point">*@
     <SfDropDownList TValue="PointNode" TItem="PointNode" @bind-Value="SelectedPoint" DataSource="@points" Placeholder="Select a point">
         <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
     </SfDropDownList>
@@ -40,7 +39,7 @@
        
     <br />
     <br />
-    <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPoint?.Id, StartDate, SelectedDuration) )">Update Chart</button>
+    <button class="btn btn-primary" @onclick="(() => GetSignals(SelectedPoint?.Id, StartDate, SelectedDuration, SelectedPoint?.Name) )">Update Chart</button>
 
     @if (GettingSignals)
     {
@@ -54,6 +53,8 @@
 </div>
 
 @code {
+    public string ChartTitle { get; set; } = "Select a point";
+
     public PointNode? SelectedPoint {get;set;}
     public DateTime? StartDate { get; set; } = DateTime.Now.AddDays(-1);
     public int SelectedDuration { get; set; } = 1;

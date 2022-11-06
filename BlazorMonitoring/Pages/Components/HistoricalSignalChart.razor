@@ -2,10 +2,8 @@
 @using FM4017Library.Helpers
 
 
-@ChartTitle
-
 @*Title="@ChartTitle"*@
-<SfChart @ref="ChartObj"  Palettes="@palettes" Height="100%">
+<SfChart @ref="ChartObj" Title="@ChartTitle" Palettes="@palettes" Height="100%">
     <ChartPrimaryXAxis Format="dd:MM:yy HH:mm" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime" /> @*Title="TimeStamp"*@
     @*<ChartPrimaryYAxis Maximum="100" />*@
     <ChartZoomSettings EnableMouseWheelZooming="true" EnablePinchZooming="true" EnableSelectionZooming="true"></ChartZoomSettings>

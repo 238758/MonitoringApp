@@ -1,4 +1,5 @@
 ﻿using FM4017Library.Dtos;
+using FM4017Library.Helpers;
 
 namespace BlazorMonitoring.Pages;
 
@@ -39,12 +40,18 @@ public partial class Chart
         return result;
     }
 
-    public async Task<List<SignalNode>?> GetSignals(string? pointId, DateTime? startDate, int daysToChart)
+    public async Task<List<SignalNode>?> GetSignals(string? pointId, DateTime? startDate, int daysToChart, string? PointName = null)
     {
         if (pointId is null)
         {
             return null;
         }
+        if (Prettify.Name(PointName) is not null)
+        {
+            ChartTitle = Prettify.Name(PointName)!;
+        }
+
+
 
         // For UI indication
         GettingSignals = true;

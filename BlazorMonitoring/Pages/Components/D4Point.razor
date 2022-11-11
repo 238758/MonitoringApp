@@ -10,9 +10,28 @@
     @*Value unit*@
     @if (LastUniqueSignals != null)
         {
+        
+
             @foreach (var signal in LastUniqueSignals)
             {
-                <h2>@signal.Data?.RawValue @Prettify.Unit(signal.Unit)</h2>
+                @if (signal.Unit == "GENERIC")
+                {
+                    @if (signal.Data?.RawValue == "1")
+                    {
+                        <h5>@Prettify.Unit(signal.Unit).parameter</h5>
+                        <h2>Closed</h2>
+                    }
+                    else
+                    {
+                        <h5>@Prettify.Unit(signal.Unit).parameter</h5>
+                        <h2>Open</h2>
+                    }
+                }
+                else
+                {
+                    <h5>@Prettify.Unit(signal.Unit).parameter</h5>
+                    <h2> @signal.Data?.RawValue @Prettify.Unit(signal.Unit).unit</h2>
+                }
             }
         }
     
@@ -94,7 +113,7 @@
         @if (Latitude != null && Longitude != null)
         {
             <br />
-            <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@Longitude,@Latitude "><span class="oi oi-location">Show on map</span></a>
+                <a target="_blank" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=@MyPoint?.Metadata?.Latitude?.ToString(),@MyPoint?.Metadata?.Longitude?.ToString() "><span class="oi oi-location">Show on map</span></a>
         }
         </p>
     }
@@ -112,16 +131,16 @@
     public bool ShowImage { get; set; } = false;
     public bool ShowChart { get; set; } = true;
     public bool ShowStats { get; set; } = false;
-    public bool ShowLocation { get; set; } = true;
+    public bool ShowLocation { get; set; } = false;
 
     private string? Latitude
     {
-        get { return MyPoint?.Metadata?.Latitude?.ToString("0.###"); }
+        get { return MyPoint?.Metadata?.Latitude?.ToString("0.####"); }
     }
 
     private string? Longitude
     {
-        get { return MyPoint?.Metadata?.Longitude?.ToString("0.###"); }
+        get { return MyPoint?.Metadata?.Longitude?.ToString("0.####"); }
     }
 
     private string? Updated

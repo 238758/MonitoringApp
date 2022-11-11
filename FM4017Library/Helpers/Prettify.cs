@@ -2,7 +2,25 @@
 
 public static class Prettify
 {
-    public static string? Unit(string? unit)
+    public static (string? unit, string? parameter) Unit(string? unit)
+    {
+        if (unit == "CELSIUS_DEGREES")
+        {
+            return ("[°C]", "Temperature");
+        }
+        else if (unit == "PERCENTS")
+        {
+            return ("[%RH]", "Humidity");
+        }
+        else if (unit == "GENERIC")
+        {
+            return ("[1=Closed, 0=Open]", "State");
+        }
+
+        return (unit, null);
+    }
+
+    public static string? ParameterUnit(string? unit)
     {
         if (unit == "CELSIUS_DEGREES")
         {
@@ -11,10 +29,6 @@ public static class Prettify
         else if (unit == "PERCENTS")
         {
             return "Humidity [%RH]";
-        }
-        else if (unit == "KILOGRAMS")
-        {
-            return "kg";
         }
         else if (unit == "GENERIC")
         {

@@ -6,15 +6,40 @@
 <div style="background-color:#eef1ff; border-radius: 30px; margin: 20px 0 0 0; padding: 10px">
 
     <div style="background-color:white; border-radius:30px; padding: 5px 10px 5px 10px">
-        <h5>Stats for @Prettify.Unit(signalNodes?.FirstOrDefault()?.Unit) 
-                last @(TotalHours(signalNodes?.LastOrDefault()?.Timestamp, signalNodes?.FirstOrDefault()?.Timestamp)) hours
-            </h5>
+        
+        @if (signalNodes?.FirstOrDefault()?.Unit == "GENERIC")
+        {
+                <div>
+                    <h5>
+                        Stats for @Prettify.Unit(signalNodes?.FirstOrDefault()?.Unit).parameter
+                        last @(TotalHours(signalNodes?.LastOrDefault()?.Timestamp, signalNodes?.FirstOrDefault()?.Timestamp)) hours
+                    </h5>
 
-        Max:@signalNodes?.Max(x => x?.Data?.NumericValue)
-          
-        Min:@signalNodes?.Min(x => x?.Data?.NumericValue)
+                    Open: @CalcOpenPercentage(SignalNodes).ToString("0.#") % of the time<br>
+                    
 
-        Avg:@signalNodes?.Average(x => x?.Data?.NumericValue)?.ToString("0.0")
+
+                </div>
+            }
+        else
+        {
+                <div>
+                    <h5>
+                        Stats for @Prettify.ParameterUnit(signalNodes?.FirstOrDefault()?.Unit)
+                        last @(TotalHours(signalNodes?.LastOrDefault()?.Timestamp, signalNodes?.FirstOrDefault()?.Timestamp)) hours
+                    </h5>
+
+                    Max: @signalNodes?.Max(x => x?.Data?.NumericValue)
+
+                    Min: @signalNodes?.Min(x => x?.Data?.NumericValue)
+
+                    Avg: @signalNodes?.Average(x => x?.Data?.NumericValue)?.ToString("0.0")
+                </div>
+        }
+        
+
+
+
     </div>
 
 

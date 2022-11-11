@@ -10,10 +10,10 @@
     <ChartSeriesCollection>
         @foreach (var signalsList in UniqueSignalsLists)
         {
-            if (signalsList.FirstOrDefault().Unit == "GENERIC")
+            if (signalsList?.FirstOrDefault()?.Unit == "GENERIC")
             {
                         <ChartSeries DataSource="@signalsList"
-                     Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))"
+                     Name="@(Prettify.ParameterUnit(signalsList?.FirstOrDefault()?.Unit))"
                      XName="TimeStamp"
                      YName="Value"
                      Type="ChartSeriesType.StepLine">
@@ -22,7 +22,7 @@
             else
             {
                         <ChartSeries DataSource="@signalsList"
-                     Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))"
+                     Name="@(Prettify.ParameterUnit(signalsList?.FirstOrDefault()?.Unit))"
                      XName="TimeStamp"
                      YName="Value"
                      Type="ChartSeriesType.Line">

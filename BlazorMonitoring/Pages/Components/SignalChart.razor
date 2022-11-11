@@ -10,13 +10,25 @@
     <ChartSeriesCollection>
         @foreach (var signalsList in UniqueSignalsLists)
         {
-            <ChartSeries
-                DataSource="@signalsList"
-                Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))" 
-                XName="TimeStamp" 
-                YName="Value" 
-                Type="ChartSeriesType.Line">
-            </ChartSeries>
+            if (signalsList.FirstOrDefault().Unit == "GENERIC")
+            {
+                        <ChartSeries DataSource="@signalsList"
+                     Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))"
+                     XName="TimeStamp"
+                     YName="Value"
+                     Type="ChartSeriesType.StepLine">
+                        </ChartSeries>
+            }
+            else
+            {
+                        <ChartSeries DataSource="@signalsList"
+                     Name="@(Prettify.Unit(signalsList?.FirstOrDefault()?.Unit))"
+                     XName="TimeStamp"
+                     YName="Value"
+                     Type="ChartSeriesType.Line">
+                        </ChartSeries>
+            }
+
         }
     </ChartSeriesCollection>
 </SfChart>

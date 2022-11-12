@@ -30,7 +30,7 @@
                 <tr @onclick="() => ChangeSelectedSignal(signal)">
                     <td>@signal.Id</td>
                     <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.Timestamp))</td>
-                    <td>@Prettify.Unit(signal.Unit)</td>
+                    <td>@Prettify.Unit(signal.Unit).unit</td>
                     <td>@signal.Data?.RawValue</td>
                     <td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.CreatedAt))</td>
                     @*<td>@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(signal.UpdatedAt))</td>*@

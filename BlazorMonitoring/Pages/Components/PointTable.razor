@@ -37,7 +37,7 @@ Selected Point: @SelectedPoint?.Name @*(id: @SelectedPoint?.Id)*@
                     <td @onclick="() => ChangeSelectedPoint(point!)">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.CreatedAt))</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@DateTimeHelpers.DateTimePrintFormatter(DateTimeHelpers.UtcTime2Local(point.UpdatedAt))</td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Data?.RawValue</td>
-                    <td @onclick="() => ChangeSelectedPoint(point!)">@Prettify.Unit(point?.Signals?.SignalNodes?.LastOrDefault()?.Unit) </td>
+                    <td @onclick="() => ChangeSelectedPoint(point!)">@Prettify.Unit(point?.Signals?.SignalNodes?.LastOrDefault()?.Unit).unit </td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.SignalStrength </td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Signals?.SignalNodes?.LastOrDefault()?.Metadata?.Snr </td>
                     <td @onclick="() => ChangeSelectedPoint(point!)">@point?.Metadata?.Latitude?.ToString("0.###")</td>
